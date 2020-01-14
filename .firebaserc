@@ -1,0 +1,23 @@
+{
+  "projects": {
+    "production": "platform-production-9207d",
+    "staging": "digital-platform-staging",
+    "default": "digital-platform-staging"
+  },
+  "targets": {
+    "digital-platform-staging": {
+      "hosting": {
+        "staging-assessment-uploader-app": [
+          "assessment-uploader-staging"
+        ]
+      }
+    },
+    "platform-production-9207d": {
+      "hosting": {
+        "production-assessment-uploader-app": [
+          "assessment-uploader-production"
+        ]
+      }
+    }
+  }
+}
