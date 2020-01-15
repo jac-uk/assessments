@@ -17,6 +17,16 @@ npm run serve
 npm run build
 ```
 
+### Deploys to staging environment
+```
+npm run deploy-staging
+```
+
+### Deploys to production environment
+```
+npm run deploy-production
+```
+
 ### Lints and fixes files
 ```
 npm run lint

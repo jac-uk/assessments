@@ -6,7 +6,10 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "build-staging": "vue-cli-service build --mode staging"
+    "build-staging": "vue-cli-service build --mode staging",
+    "deploy-staging": "vue-cli-service build --mode staging; firebase deploy --only hosting:staging-assessment-uploader-app --project digital-platform-staging",
+    "build-production": "vue-cli-service build --mode production",
+    "deploy-production": "vue-cli-service build --mode production; firebase deploy --only hosting:production-assessment-uploader-app --project platform-production-9207d"
   },
   "dependencies": {
     "core-js": "^3.4.4",
