@@ -15,7 +15,7 @@
     "platform-production-9207d": {
       "hosting": {
         "production-assessment-uploader-app": [
-          "assessment-uploader-production"
+          "assessment-uploader-prod"
         ]
       }
     }
