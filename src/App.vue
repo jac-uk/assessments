@@ -1,28 +1,76 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="govuk-width-container">
+    <div class="govuk-main-wrapper">
+      <header class="header">
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-one-half">
+            <!-- HEADER SECTION -->
+            <div class="govuk-grid-row">
+              <div class="govuk-grid-column-two-thirds organisation__margin-bottom">
+                <div class="gem-c-organisation-logo brand--ministry-of-justice">
+                  <img
+                    src="@/assets/jac-logo.svg"
+                    alt="Judicial Appointments Commission"
+                    width="197"
+                    height="66"
+                    style="text-align: center"
+                  >
+                </div>
+              </div>
+            </div>
+            <!-- HEADER SECTION -->
+          </div>
+        </div>
+      </header>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+          <div class="govuk-phase-banner">
+            <p class="govuk-phase-banner__content">
+              <strong class="govuk-tag govuk-phase-banner__content__tag">
+                alpha
+              </strong>
+              <span class="govuk-phase-banner__text">
+                This is a new service – your feedback will help us improve it.
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <main id="main-content">
+      <Upload />
+    </main>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Upload from './components/Upload.vue';
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
-  }
+    Upload
+  }  
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style lang="scss">
+// @import 'https://assets.publishing.service.gov.uk/static/govuk-template-c0b8ba8b1652aacad298d74f24752260187f538b50c40c2484f7f333cbc3cf2b.css';
+@import 'https://assets.publishing.service.gov.uk/static/fonts-e9ec5a5f82e5c2a17927ce356e5a054cb28025ec1547ec5d00f5c98d2ec5e481.css';
+@import 'https://assets.publishing.service.gov.uk/static/core-layout-535eb07d05bcae550061481a9cbefad8c4807bf8da32da77312cf8ef2ab616c0.css';
+@import 'https://assets.publishing.service.gov.uk/collections/application-1da0069f0ad5c09cfd287444f877560d89793e621ff13c1ababf63cc4eaceb8e.css';
+  // Required to include global main.scss styles
+  .govuk-grid-column-one-half {
+    width: 100%;
+    float: left;
 }
+  .header {
+    background-color: #fafafa;
+    padding: 1.25em 0.625em 0 0.625em;
+  };
+
+  .govuk-main-wrapper {
+    padding-top: 0px;
+  }
 </style>
