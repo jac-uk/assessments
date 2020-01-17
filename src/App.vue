@@ -81,7 +81,7 @@ export default {
   computed: {
     applicationId() {
       const urlParams = new URLSearchParams(window.location.search);
-      const myParam = urlParams.get('reference-num');
+      const myParam = urlParams.get('application-id');
       return myParam;
     },
     assessorEmail() {
@@ -94,7 +94,7 @@ export default {
     //async save(isValid) {
     async save() {
       await this.upload();
-      alert('Thanks for uploading your assessment');
+      alert('Assessment uploaded successfully');
     },
     fileSelected(event) {
       //console.log('fileSelected called');
@@ -123,9 +123,9 @@ export default {
 
       const urlParams = new URLSearchParams(window.location.search);
       const assessorEmail = urlParams.get('assessor');
-      const applicationId = urlParams.get('applicationId');
+      const applicationId = urlParams.get('application-id');
 
-      const fileSavePath = `application-${applicationId}/${assessorEmail}-independent-assessment.${fileExtension}`;
+      const fileSavePath = `application/${applicationId}/${assessorEmail}-independent-assessment.${fileExtension}`;
       console.log(`fileSavePath = ${fileSavePath}`);
 
       const storageRef = firebase.storage().ref();
@@ -167,8 +167,7 @@ export default {
             }, () => {
               // Upload completed successfully, now we can get the download URL
               uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-                //console.log('File available at', downloadURL);
-                alert(`downloadURL = ${downloadURL}`);
+                console.log('File available at', downloadURL);
               });
             });
     },
