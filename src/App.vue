@@ -57,7 +57,6 @@
                 id="independent-assessment-file"
                 class="govuk-file-upload"
                 type="file"
-                @change="fileSelected"
               >
             </div>
 
@@ -77,42 +76,13 @@ import '@firebase/storage';
 
 export default {
   name: 'App',
-  components: {},
-  computed: {
-    applicationId() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const myParam = urlParams.get('application-id');
-      return myParam;
-    },
-    assessorEmail() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const myParam = urlParams.get('assessor');
-      return myParam;        
-    },
-  },
   methods: {
-    //async save(isValid) {
     async save() {
       await this.upload();
       alert('Assessment uploaded successfully');
     },
-    fileSelected(event) {
-      //console.log('fileSelected called');
-      if (event.target.files.length > 0) {
-        //console.log(event.target.files.length);
-        const file = event.target.files[0];
-        //console.log(file);
-
-        const data = {
-          name: file.name,
-          file: file,
-          type: event.target.id,
-        };
-        console.log(data);
-      }
-    },
     upload() {
-      console.log('upload function called');
+      //console.log('upload function called');
       //console.log(`item.name = ${item.name}`);
       //console.log(`item.type = ${item.type}`);
       //console.log('item = ', item);
@@ -126,7 +96,7 @@ export default {
       const applicationId = urlParams.get('application-id');
 
       const fileSavePath = `application/${applicationId}/${assessorEmail}-independent-assessment.${fileExtension}`;
-      console.log(`fileSavePath = ${fileSavePath}`);
+      //console.log(`fileSavePath = ${fileSavePath}`);
 
       const storageRef = firebase.storage().ref();
 
@@ -166,8 +136,9 @@ export default {
               }
             }, () => {
               // Upload completed successfully, now we can get the download URL
-              uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-                console.log('File available at', downloadURL);
+              //uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+              uploadTask.snapshot.ref.getDownloadURL().then(() => {
+                //console.log('File available at', downloadURL);
               });
             });
     },
