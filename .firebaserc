@@ -1,21 +1,29 @@
 {
   "projects": {
-    "production": "platform-production-9207d",
+    "develop": "digital-platform-develop",
     "staging": "digital-platform-staging",
-    "default": "digital-platform-staging"
+    "production": "platform-production-9207d",
+    "default": "digital-platform-develop"
   },
   "targets": {
+    "digital-platform-develop": {
+      "hosting": {
+        "develop-admin-app": [
+          "jac-admin-develop"
+        ]
+      }
+    },
     "digital-platform-staging": {
       "hosting": {
-        "staging-assessment-uploader-app": [
-          "assessment-uploader-staging"
+        "staging-admin-app": [
+          "jac-apply-admin-staging"
         ]
       }
     },
     "platform-production-9207d": {
       "hosting": {
-        "production-assessment-uploader-app": [
-          "assessment-uploader-prod"
+        "production-admin-app": [
+          "jac-apply-admin-production"
         ]
       }
     }
