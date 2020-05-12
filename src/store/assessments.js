@@ -9,6 +9,7 @@ export default {
       let firestoreRef = firestore
         .collection('assessments')
         .where('assessor.email', '==', assessorEmail)
+        .where('status', '==', 'pending')
         .orderBy('dueDate', 'asc');
 
       return bindFirestoreRef('records', firestoreRef, { serialize: vuexfireSerialize });

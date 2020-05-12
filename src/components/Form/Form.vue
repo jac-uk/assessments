@@ -14,7 +14,9 @@ export default {
     this.$root.$on('handle-error', this.handleError);
 
     // Disable HTML5 validation
-    this.$el.querySelector('form').setAttribute('novalidate', true);
+    if (this.$el.querySelector('form')) {
+      this.$el.querySelector('form').setAttribute('novalidate', true);
+    }
   },
   beforeDestroy: function() {
     this.$root.$off('handle-error', this.handleError);

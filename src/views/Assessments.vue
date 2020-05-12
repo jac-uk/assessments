@@ -77,7 +77,7 @@
               </td>
               <td class="govuk-table__cell">
                 <router-link
-                  v-if="assessment.status === 'draft'"
+                  v-if="assessment.status === 'pending'"
                   class="govuk-button govuk-button--secondary"
                   :to="{ name: 'assessment-edit', params: { id: assessment.id }}"
                 >
@@ -121,10 +121,11 @@ export default {
   computed: {
     ...mapState({
       assessments: state => state.assessments.records,
+      currentUser: state => state.auth.currentUser,
     }),
   },
   mounted() {
-    this.$store.dispatch('assessments/bind', 'email@somewhere.com')
+    this.$store.dispatch('assessments/bind', this.currentUser.email)
       .then((data) => {
         if(data === null) {
           this.redirectToErrorPage();
