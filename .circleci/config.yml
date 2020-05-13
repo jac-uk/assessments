@@ -81,20 +81,20 @@ workflows:
           requires:
             - setup
       - build-and-deploy-develop:
-          # requires:
-          #   - test
+          requires:
+            - test
           filters:
             branches:
               only: /develop/
       - build-and-deploy-staging:
-          # requires:
-          #   - test
+          requires:
+            - test
           filters:
             branches:
               only: /release/.*/
       - build-and-deploy-production:
-          # requires:
-          #   - test
+          requires:
+            - test
           filters:
             branches:
               only: 
