@@ -6,10 +6,15 @@
     "serve": "vue-cli-service serve --mode develop",
     "build": "vue-cli-service build --mode develop",
     "lint": "vue-cli-service lint",
-    "build-staging": "vue-cli-service build --mode staging",
-    "deploy-staging": "vue-cli-service build --mode staging; firebase deploy --only hosting:staging-assessment-uploader-app --project digital-platform-staging",
-    "build-production": "vue-cli-service build --mode production",
-    "deploy-production": "vue-cli-service build --mode production; firebase deploy --only hosting:production-assessment-uploader-app --project platform-production-9207d"
+    "lint-ci": "vue-cli-service lint --no-fix",
+    "test": "vue-cli-service test:unit",
+    "test-ci": "vue-cli-service test:unit --ci --runInBand",
+    "develop:build": "vue-cli-service build --mode develop",
+    "develop:deploy": "vue-cli-service build --mode develop; firebase deploy --only hosting:develop-assessments-app --project digital-platform-develop",
+    "staging:build": "vue-cli-service build --mode staging",
+    "staging:deploy": "vue-cli-service build --mode staging; firebase deploy --only hosting:staging-assessments-app --project digital-platform-staging",
+    "production:build": "vue-cli-service build --mode production",
+    "production:deploy": "vue-cli-service build --mode production; firebase deploy --only hosting:production-assessments-app --project platform-production-9207d"
   },
   "dependencies": {
     "@firebase/app": "^0.6.2",
