@@ -77,7 +77,7 @@
               </td>
               <td class="govuk-table__cell">
                 <router-link
-                  v-if="assessment.status === 'pending'"
+                  v-if="canEdit(assessment)"
                   class="govuk-button govuk-button--secondary"
                   :to="{ name: 'assessment-edit', params: { id: assessment.id }}"
                 >
@@ -139,10 +139,13 @@ export default {
       });
   },
   methods: {
+    canEdit(assessment) {
+      return assessment.status === 'pending';
+    },
     overdue(assessment) {
       const today = new Date();
 
-      return assessment.status === 'draft' && today > assessment.dueDate;
+      return assessment.status === 'pending' && today > assessment.dueDate;
     },
     redirectToErrorPage() {
       this.$router.replace({ name: 'assessments-not-found' });

@@ -138,14 +138,14 @@ export default {
     overdue() {
       const today = new Date();
 
-      return this.assessment.status === 'draft' && today > this.assessment.dueDate;
+      return this.assessment.status === 'pending' && today > this.assessment.dueDate;
     },
   },
   methods: {
     async save() {
       this.validate();
       if (this.isValid()) {
-        this.assessment.status = 'uploaded';
+        this.assessment.status = 'completed';
         this.assessment.assessor.id = this.$store.state.auth.currentUser.uid;
         await this.$store.dispatch('assessment/save', this.assessment);
         this.$router.push({ name: 'assessment-success' });
