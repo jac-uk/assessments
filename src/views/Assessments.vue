@@ -77,7 +77,7 @@
               </td>
               <td class="govuk-table__cell">
                 <router-link
-                  v-if="assessment.status === 'draft'"
+                  v-if="canEdit(assessment)"
                   class="govuk-button govuk-button--secondary"
                   :to="{ name: 'assessment-edit', params: { id: assessment.id }}"
                 >
@@ -121,10 +121,11 @@ export default {
   computed: {
     ...mapState({
       assessments: state => state.assessments.records,
+      currentUser: state => state.auth.currentUser,
     }),
   },
   mounted() {
-    this.$store.dispatch('assessments/bind', 'email@somewhere.com')
+    this.$store.dispatch('assessments/bind', this.currentUser.email)
       .then((data) => {
         if(data === null) {
           this.redirectToErrorPage();
@@ -138,10 +139,13 @@ export default {
       });
   },
   methods: {
+    canEdit(assessment) {
+      return assessment.status === 'pending';
+    },
     overdue(assessment) {
       const today = new Date();
 
-      return assessment.status === 'draft' && today > assessment.dueDate;
+      return assessment.status === 'pending' && today > assessment.dueDate;
     },
     redirectToErrorPage() {
       this.$router.replace({ name: 'assessments-not-found' });

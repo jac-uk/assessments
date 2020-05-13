@@ -6,7 +6,7 @@
           <div class="govuk-grid-column-one-half">
             <!-- HEADER SECTION -->
             <div class="govuk-grid-row">
-              <div class="govuk-grid-column-two-thirds organisation__margin-bottom">
+              <div class="govuk-grid-column-two-thirds">
                 <div class="gem-c-organisation-logo brand--ministry-of-justice">
                   <img
                     src="@/assets/jac-logo.svg"
@@ -17,6 +17,15 @@
                   >
                 </div>
               </div>
+              <div class="govuk-grid-column-one-third text-right">
+                <button
+                  v-if="isSignedIn && $route.name !== 'sign-in'"
+                  class="govuk-button"
+                  @click="signOut"
+                >
+                  Sign Out
+                </button>
+              </div>              
             </div>
             <!-- HEADER SECTION -->
           </div>
@@ -45,9 +54,20 @@
 </template>
 
 <script>
-
+import { auth } from '@/firebase';
 export default {
   name: 'App',
+  computed: {
+    isSignedIn() {
+      return this.$store.getters['auth/isSignedIn'];
+    },
+  },
+  methods: {
+    async signOut() {
+      await auth().signOut();
+      this.$router.go('/sign-in');
+    },
+  },
 };
 </script>
 

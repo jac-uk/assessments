@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-//import store from '@/store';
+import store from '@/store';
+
+import SignIn from '@/views/SignIn';
 
 // Edit views
 import Assessments from '@/views/Assessments';
@@ -22,7 +24,16 @@ const router = new Router({
   routes: [
     {
       path: '*',
-      redirect: '/assessments',
+      redirect: '/sign-in',
+    },
+    {
+      path: '/sign-in',
+      name: 'sign-in',
+      component: SignIn,
+      meta: {
+        requiresAuth: false,
+        title: 'Sign In',
+      },
     },
     {
       path: '/assessments',
@@ -89,11 +100,22 @@ const router = new Router({
       name: 'page-not-found',
       component: PageNotFound,
       meta: {
-        requiresAuth: true,
+        requiresAuth: false,
         title: 'Page Not Found',
       },
     },
   ],
+});
+
+// Global before guard to verify if a user can access the requested page.
+// It redirects unauthorized users to a sign-in page.
+router.beforeEach(async (to, from, next) => {
+  const requiresAuth = to.matched.some(x => x.meta.requiresAuth);
+  const isSignedIn = store.getters['auth/isSignedIn'];
+  if (requiresAuth && !isSignedIn) {
+    return next({ name: 'sign-in' });
+  }
+  return next();
 });
 
 // Global after hook to set an appropriate title for the page
