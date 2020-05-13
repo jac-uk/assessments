@@ -8,22 +8,22 @@
   "targets": {
     "digital-platform-develop": {
       "hosting": {
-        "develop-admin-app": [
-          "jac-admin-develop"
+        "develop-assessments-app": [
+          "jac-assessments-develop"
         ]
       }
     },
     "digital-platform-staging": {
       "hosting": {
-        "staging-admin-app": [
-          "jac-apply-admin-staging"
+        "staging-assessments-app": [
+          "jac-assessments-staging"
         ]
       }
     },
     "platform-production-9207d": {
       "hosting": {
-        "production-admin-app": [
-          "jac-apply-admin-production"
+        "production-assessments-app": [
+          "jac-assessments"
         ]
       }
     }

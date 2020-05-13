@@ -1,6 +1,7 @@
 {
-  "hosting": [{
-      "target": "staging-assessment-uploader-app",
+  "hosting": [
+    {
+      "target": "develop-assessments-app",
       "public": "dist",
       "ignore": [
         "firebase.json",
@@ -15,7 +16,22 @@
       ]
     },
     {
-      "target": "production-assessment-uploader-app",
+      "target": "staging-assessments-app",
+      "public": "dist",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    },
+    {
+      "target": "production-assessments-app",
       "public": "dist",
       "ignore": [
         "firebase.json",
