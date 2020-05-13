@@ -112,7 +112,7 @@ export default {
   extends: Form,
   data() {
     const defaults = {
-      name: null,
+      fileRef: null,
     };
     const data = this.$store.getters['assessment/data']();
     const assessment = { ...defaults, ...data };
@@ -122,30 +122,31 @@ export default {
   },
   computed: {
     assessmentId() {
-      return this.$route.params.assessmentId;
+      return this.$route.params.id;
     },
     fileName() {
-      return this.assessment.id;
+      return this.assessmentId;
     },
     uploadPath() {
       const exerciseId = this.assessment.exercise.id;
       const applicationId = this.assessment.application.id;
-      const candidateId = this.assessment.candidate.id;
+      const assessorId = this.$store.state.auth.currentUser.uid;
 
       //return `/exercise/${exerciseId}/user/${candidateId}/assessments`;
-      return `/exercise/${exerciseId}/application/${applicationId}/assessor/${candidateId}`;
+      return `/exercise/${exerciseId}/application/${applicationId}/assessor/${assessorId}`;
     },
     overdue() {
       const today = new Date();
 
-      return this.assessment.status === 'draft' && today > this.assessment.dueDate;
+      return this.assessment.status === 'pending' && today > this.assessment.dueDate;
     },
   },
   methods: {
     async save() {
       this.validate();
       if (this.isValid()) {
-        this.assessment.status = 'uploaded';
+        this.assessment.status = 'completed';
+        this.assessment.assessor.id = this.$store.state.auth.currentUser.uid;
         await this.$store.dispatch('assessment/save', this.assessment);
         this.$router.push({ name: 'assessment-success' });
       }
