@@ -103,7 +103,7 @@ export default {
       if (this.isValid()) {
         this.loading = true;
         const actionCodeSettings = {
-          url: 'http://localhost:8082/sign-in?return=true',
+          url: `${window.location.protocol}//${window.location.host}/sign-in?return=true`,
           handleCodeInApp: true,
         };
         await auth().sendSignInLinkToEmail(this.formData.email, actionCodeSettings);
