@@ -68,12 +68,6 @@
               </td>
               <td class="govuk-table__cell">
                 {{ assessment.status | lookup }}
-                <strong
-                  v-if="overdue(assessment)"
-                  class="govuk-tag govuk-tag--red"
-                >
-                  Overdue
-                </strong>
               </td>
               <td class="govuk-table__cell">
                 <router-link
@@ -141,11 +135,6 @@ export default {
   methods: {
     canEdit(assessment) {
       return assessment.status === 'pending';
-    },
-    overdue(assessment) {
-      const today = new Date();
-
-      return assessment.status === 'pending' && today > assessment.dueDate;
     },
     redirectToErrorPage() {
       this.$router.replace({ name: 'assessments-not-found' });

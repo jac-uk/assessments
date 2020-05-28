@@ -43,13 +43,6 @@
               </dt>
               <dd class="govuk-summary-list__value">
                 {{ assessment.dueDate | formatDate }}
-
-                <strong
-                  v-if="overdue"
-                  class="govuk-tag govuk-tag--red"
-                >
-                  Overdue
-                </strong>
               </dd>
             </div>
           </dl>
@@ -128,14 +121,7 @@ export default {
       const exerciseId = this.assessment.exercise.id;
       const applicationId = this.assessment.application.id;
       const assessorId = this.$store.state.auth.currentUser.uid;
-
-      //return `/exercise/${exerciseId}/user/${candidateId}/assessments`;
       return `/exercise/${exerciseId}/application/${applicationId}/assessor/${assessorId}`;
-    },
-    overdue() {
-      const today = new Date();
-
-      return this.assessment.status === 'pending' && today > this.assessment.dueDate;
     },
   },
   methods: {
