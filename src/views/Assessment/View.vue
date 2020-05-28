@@ -29,9 +29,6 @@
               Candidate
             </dt>
             <dd class="govuk-summary-list__value">
-              <p class="govuk-body-s">
-                <span class="govuk-caption-m">{{ assessment.application.referenceNumber }}</span>
-              </p>
               <p class="govuk-body">
                 {{ assessment.candidate.fullName }}
               </p>
