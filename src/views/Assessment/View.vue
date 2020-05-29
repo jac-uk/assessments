@@ -29,9 +29,6 @@
               Candidate
             </dt>
             <dd class="govuk-summary-list__value">
-              <p class="govuk-body-s">
-                <span class="govuk-caption-m">{{ assessment.application.referenceNumber }}</span>
-              </p>
               <p class="govuk-body">
                 {{ assessment.candidate.fullName }}
               </p>
@@ -53,9 +50,13 @@
 
         <DownloadLink
           v-if="assessment.fileRef"
+          class="moj-button-menu__item"
           :file-name="assessment.fileRef"
           :exercise-id="assessment.exercise.id"
-          :title="assessment.exercise.template.title"
+          :application-id="assessment.application.id"
+          :assessor-id="assessment.assessor.id"
+          title="Download assessment"
+          type="button"
         />
         <p
           v-else
@@ -75,8 +76,8 @@ import DownloadLink from '@/components/DownloadLink';
 
 export default {
   components: {
-    DownloadLink,
     BackLink,
+    DownloadLink,
   },
   computed: {
     ...mapState({

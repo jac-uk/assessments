@@ -75,7 +75,8 @@ export default {
       // we have email and ref querystring parameters so try to sign in automatically
       const email = this.$route.query.email;
       const ref = this.$route.query.ref;
-      const response = await functions.httpsCallable('generateSignInWithEmailLink')({ ref: ref, email: email });
+      const returnUrl = `${window.location.protocol}//${window.location.host}/sign-in`;
+      const response = await functions.httpsCallable('generateSignInWithEmailLink')({ ref: ref, email: email, returnUrl: returnUrl });
       if (response.data.result) {
         window.localStorage.setItem('emailForSignIn', email);
         window.localStorage.setItem('signInDestination', ref + '/upload');
@@ -103,7 +104,7 @@ export default {
       if (this.isValid()) {
         this.loading = true;
         const actionCodeSettings = {
-          url: 'http://localhost:8082/sign-in?return=true',
+          url: `${window.location.protocol}//${window.location.host}/sign-in?return=true`,
           handleCodeInApp: true,
         };
         await auth().sendSignInLinkToEmail(this.formData.email, actionCodeSettings);
