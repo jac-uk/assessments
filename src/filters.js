@@ -7,7 +7,7 @@ const formatDate = (value, type) => {
     case 'datetime':
       return objDate.toLocaleString('en-GB');
     default:
-      return objDate.toLocaleDateString('en-GB');
+        return objDate.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
     }
   }
 };
