@@ -72,17 +72,17 @@
               <td class="govuk-table__cell">
                 <router-link
                   v-if="canEdit(assessment)"
-                  class="govuk-button govuk-button--secondary"
+                  class="govuk-button govuk-button--primary"
                   :to="{ name: 'assessment-edit', params: { id: assessment.id }}"
                 >
-                  Upload
+                  View Incomplete Assessment
                 </router-link>
                 <router-link
                   v-else
                   class="govuk-button govuk-button--secondary"
                   :to="{ name: 'assessment-view', params: { id: assessment.id }}"
                 >
-                  Review
+                  Review Completed Assessment
                 </router-link>
               </td>
             </tr>
