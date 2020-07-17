@@ -117,10 +117,13 @@ export default {
     fileName() {
       return this.assessmentId;
     },
+    assessorId() {
+      return this.$store.getters['auth/currentUserId'];
+    },
     uploadPath() {
       const exerciseId = this.assessment.exercise.id;
       const applicationId = this.assessment.application.id;
-      const assessorId = this.$store.state.auth.currentUser.uid;
+      const assessorId = this.assessorId;
       return `/exercise/${exerciseId}/application/${applicationId}/assessor/${assessorId}`;
     },
   },

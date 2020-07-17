@@ -81,6 +81,8 @@ export default {
         window.localStorage.setItem('emailForSignIn', email);
         window.localStorage.setItem('signInDestination', ref + '/upload');
         return window.location.replace(response.data.result);
+      } else {
+        // console.log('mal-formed request');
       }
     } else if (this.$route.query.return) {
       // we have 'return' flag set so try to complete sign in
