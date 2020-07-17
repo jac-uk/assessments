@@ -4,8 +4,17 @@ import * as filters from '@/filters';
 import router from '@/router';
 import store from '@/store';
 import { auth } from '@/firebase';
-//import firebase from '@firebase';
+import * as Sentry from '@sentry/browser';
+import * as Integrations from '@sentry/integrations';
 
+if (process.env.NODE_ENV !== 'development') {
+  Sentry.init({
+    dsn: 'https://23ac92825117451eb421535be7e4c334@o323827.ingest.sentry.io/5301649',
+    environment: process.env.NODE_ENV,
+    release: process.env.npm_package_version,
+    integrations: [new Integrations.Vue({ Vue, attachProps: true })],
+  });
+}
 Vue.config.productionTip = false;
 
 // Register global filters
