@@ -45,6 +45,13 @@ const module = {
     isSignedIn(state) {
       return (state.currentUser !== null);
     },
+    currentUserId(state) {
+      if (state.currentUser !== null) {
+        return state.currentUser.uid;
+      } else {
+        return '';
+      }
+    },
   },
 };
 
