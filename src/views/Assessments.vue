@@ -12,9 +12,12 @@
         <h1 class="govuk-heading-l">
           Independent Assessments
         </h1>
-
+        <TabsList
+          :tabs="tabs"
+          :active-tab.sync="activeTab"
+        />
         <table
-          v-if="assessments.length"
+          v-if="(activeTab == 'pending' && assessmentsPending.length) || (activeTab == 'complete' && assessmentsComplete.length)"
           class="govuk-table table-with-border"
         >
           <thead class="govuk-table__head">
@@ -53,7 +56,7 @@
           </thead>
           <tbody class="govuk-table__body">
             <tr
-              v-for="assessment in assessments"
+              v-for="assessment in (activeTab == 'complete') ? assessmentsComplete : assessmentsPending"
               :key="assessment.id"
               class="govuk-table__row"
             >
@@ -101,36 +104,54 @@
 </template>
 <script>
 import { mapState } from 'vuex';
+import TabsList from '@/components/Page/TabsList';
 import LoadingMessage from '@/components/LoadingMessage';
 export default {
   components: {
     LoadingMessage,
+    TabsList,
   },
   data() {
     return {
+      activeTab: 'pending',
       loaded: false,
       loadFailed: false,
     };
   },
   computed: {
     ...mapState({
-      assessments: state => state.assessments.records,
+      assessmentsPending: state => state.assessments.pending,
+      assessmentsComplete: state => state.assessments.complete,
       currentUser: state => state.auth.currentUser,
     }),
+    tabs(){
+      return [
+        {
+          ref: 'pending',
+          title: 'Pending',
+        },
+        {
+          ref: 'complete',
+          title: 'Complete',
+        },
+      ];
+    },
   },
-  mounted() {
-    this.$store.dispatch('assessments/bind', this.currentUser.email)
-      .then((data) => {
-        if(data === null) {
-          this.redirectToErrorPage();
-        }
-        else {
-          this.loaded = true;
-        }
-      }).catch((e) => {
-        this.loadFailed = true;
-        throw e;
-      });
+  created() {
+    this.$store.dispatch('assessments/bindPending', this.currentUser.email);
+    this.$store.dispatch('assessments/bindComplete', this.currentUser.email);
+    this.loaded = true;
+    // .then((data) => {
+    //   if(data === null) {
+    //     this.redirectToErrorPage();
+    //   }
+    //   else {
+    //     this.loaded = true;
+    //   }
+    // }).catch((e) => {
+    //   this.loadFailed = true;
+    //   throw e;
+    // });
   },
   methods: {
     canEdit(assessment) {

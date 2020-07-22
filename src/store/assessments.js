@@ -5,16 +5,26 @@ import vuexfireSerialize from '@/helpers/vuexfireSerialize';
 export default {
   namespaced: true,
   actions: {
-    bind: firestoreAction(({ bindFirestoreRef }, assessorEmail) => {
+    bindPending: firestoreAction(({ bindFirestoreRef }, assessorEmail) => {
       let firestoreRef = firestore
         .collection('assessments')
         .where('assessor.email', '==', assessorEmail)
+        .where('status', '==', 'pending')
         .orderBy('dueDate', 'asc');
 
-      return bindFirestoreRef('records', firestoreRef, { serialize: vuexfireSerialize });
+      return bindFirestoreRef('pending', firestoreRef, { serialize: vuexfireSerialize });
+    }),
+    bindComplete: firestoreAction(({ bindFirestoreRef }, assessorEmail) => {
+      let firestoreRef = firestore
+        .collection('assessments')
+        .where('assessor.email', '==', assessorEmail)
+        .where('status', '==', 'completed')
+        .orderBy('dueDate', 'asc');
+
+      return bindFirestoreRef('complete', firestoreRef, { serialize: vuexfireSerialize });
     }),
     unbind: firestoreAction(({ unbindFirestoreRef }) => {
-      return unbindFirestoreRef('records');
+      return unbindFirestoreRef('pending') && unbindFirestoreRef('complete');
     }),
   },
   state: {
