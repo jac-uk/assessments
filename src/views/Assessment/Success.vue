@@ -4,9 +4,9 @@
       <h1 class="govuk-panel__title">
         Assessment complete
       </h1>
-      <!--<div class="govuk-panel__body">
-        Confirmation message here
-      </div>-->
+      <div class="govuk-panel__body">
+        Please treat this as confirmation of your submission. You do not need to contact the JAC.
+      </div>
     </div>
 
     <h2 class="govuk-heading-m">
@@ -14,7 +14,8 @@
     </h2>
 
     <p class="govuk-body">
-      That's all. Thank you.
+      Your assessment has been passed to the selection exercise team who will review it. 
+      Thank you for taking the time to complete this assessment. 
     </p>
 
     <p class="govuk-body">
@@ -25,7 +26,7 @@
       >
         all requests for assessment
       </router-link>
-      we sent to you.
+      we have sent to you.
     </p>
   </div>
 </template>
