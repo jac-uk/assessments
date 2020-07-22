@@ -138,20 +138,21 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch('assessments/bindPending', this.currentUser.email);
-    this.$store.dispatch('assessments/bindComplete', this.currentUser.email);
-    this.loaded = true;
-    // .then((data) => {
-    //   if(data === null) {
-    //     this.redirectToErrorPage();
-    //   }
-    //   else {
-    //     this.loaded = true;
-    //   }
-    // }).catch((e) => {
-    //   this.loadFailed = true;
-    //   throw e;
-    // });
+    // Ideally we'd use allSettled but IE doesn't support this
+    Promise.all([
+      this.$store.dispatch('assessments/bindPending', this.currentUser.email),
+      this.$store.dispatch('assessments/bindComplete', this.currentUser.email),
+    ]).then((data) => {
+      if(data === null) {
+        this.redirectToErrorPage();
+      }
+      else {
+        this.loaded = true;
+      }
+    }).catch((e) => {
+      this.loadFailed = true;
+      throw e;
+    });
   },
   methods: {
     canEdit(assessment) {
