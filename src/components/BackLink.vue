@@ -1,7 +1,7 @@
 <template>
   <a
     class="govuk-back-link"
-    @click="$router.back()"
+    @click="$router.push('/assessments')"
   >
     Back
   </a>
