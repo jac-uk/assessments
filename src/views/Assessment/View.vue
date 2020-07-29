@@ -1,7 +1,7 @@
 <template>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <BackLink />
+      <a class="govuk-back-link" @click="$router.push('/assessments')">View All Assessments</a>
 
       <h1 class="govuk-heading-l">
         Review Assessment
