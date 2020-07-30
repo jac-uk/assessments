@@ -52,45 +52,50 @@
             </div>
           </dl>
 
-          <p class="govuk-body-l">
-            Download the template on this page to complete your assessment.
-          </p>
+          <div
+            v-if="submissionPermitted"
+          >
+            <p class="govuk-body-l">
+              Download the template on this page to complete your assessment.
+            </p>
 
-          <p class="govuk-body-l">
-            Come back to this page to upload your finished assessment.
-          </p>
+            <p class="govuk-body-l">
+              Come back to this page to upload your finished assessment.
+            </p>
 
-          <div class="govuk-form-group">
-            <h2 class="govuk-heading-m">
-              Download self assessment template
-            </h2>
+            <div class="govuk-form-group">
+              <h2 class="govuk-heading-m">
+                Download self assessment template
+              </h2>
 
-            <DownloadLink
-              :file-name="assessment.exercise.template.file"
-              :exercise-id="assessment.exercise.id"
-              :title="assessment.exercise.template.title"
+              <DownloadLink
+                :file-name="assessment.exercise.template.file"
+                :exercise-id="assessment.exercise.id"
+                :title="assessment.exercise.template.title"
+              />
+            </div>
+
+            <FileUpload
+              id="independent-assessment-file"
+              ref="independent-assessment-file"
+              v-model="assessment.fileRef"
+              :name="fileName"
+              :path="uploadPath"
+              label="Please upload your assessment here"
+              required
             />
+
+            <button class="govuk-button">
+              Save and continue
+            </button>
           </div>
-
-          <FileUpload
-            id="independent-assessment-file"
-            ref="independent-assessment-file"
-            v-model="assessment.fileRef"
-            :name="fileName"
-            :path="uploadPath"
-            label="Please upload your assessment here"
-            required
-          />
-
-          <button class="govuk-button">
-            Save and continue
-          </button>
         </div>
       </div>
     </form>
   </div>
 </template>
 <script>
+import { isDateInFuture } from '@/helpers/date';
 import Form from '@/components/Form/Form';
 import ErrorSummary from '@/components/Form/ErrorSummary';
 import DownloadLink from '@/components/DownloadLink';
@@ -122,6 +127,17 @@ export default {
     },
     assessorId() {
       return this.$store.getters['auth/currentUserId'];
+    },
+    submissionPermitted() {
+      if(!this.assessment.hardLimit){
+        return true;
+      }
+
+      if(isDateInFuture(this.assessment.hardLimit)){
+        return true;
+      }
+
+      return false;
     },
     uploadPath() {
       const exerciseId = this.assessment.exercise.id;

@@ -81,6 +81,13 @@
                   View Incomplete Assessment
                 </router-link>
                 <router-link
+                  v-else-if="canEdit(assessment) && !submissionPermitted(assessment)"
+                  class="govuk-button govuk-button--primary"
+                  :to="{ name: 'assessment-edit', params: { id: assessment.id }}"
+                >
+                  View Incomplete Assessment
+                </router-link>
+                <router-link
                   v-else
                   class="govuk-button govuk-button--secondary"
                   :to="{ name: 'assessment-view', params: { id: assessment.id }}"
@@ -104,6 +111,7 @@
 </template>
 <script>
 import { mapState } from 'vuex';
+import { isDateInFuture } from '@/helpers/date';
 import TabsList from '@/components/Page/TabsList';
 import LoadingMessage from '@/components/LoadingMessage';
 export default {
@@ -157,6 +165,17 @@ export default {
   methods: {
     canEdit(assessment) {
       return assessment.status === 'pending';
+    },
+    submissionPermitted(assessment) {
+      if(!assessment.hardLimit){
+        return false;
+      }
+
+      if(isDateInFuture(assessment.hardLimit)){
+        return true;
+      }
+
+      return false;
     },
     redirectToErrorPage() {
       this.$router.replace({ name: 'assessments-not-found' });
