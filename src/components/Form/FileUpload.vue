@@ -85,6 +85,7 @@ export default {
       file: '',
       isReplacing: false,
       isUploading: false,
+      acceptableExtensions: ['docx', 'doc', 'odf'],
     };
   },
   computed: {
@@ -121,11 +122,24 @@ export default {
     },
     generateFileName(originalName) {
       const parts = originalName.split('.');
-      if( parts.length === 1 || ( parts[0] === '' && parts.length === 2 )) {
+      if ( parts.length === 1 || ( parts[0] === '' && parts.length === 2 )) {
         return this.name;
       }
 
       return [this.name, parts.pop()].join('.');
+    },
+    validFileExtension(originalName){
+      const parts = originalName.split('.');
+
+      if (parts.length < 2){
+        return false;
+      }
+
+      if (this.acceptableExtensions.includes(parts.pop())){
+        return true;
+      }
+
+      return false;
     },
     resetFile() {
       this.$refs.file = null;
@@ -133,9 +147,12 @@ export default {
     },
     async upload(file) {
       // @todo return more useful error messages
-
       if (!file) {
         this.setError('File upload failed, please try again');
+        return false;
+      } 
+      if (!this.validFileExtension(file.name)) {
+        this.setError(`Invalid file type. Choose from: ${this.acceptableExtensions}`);
         return false;
       }
 
