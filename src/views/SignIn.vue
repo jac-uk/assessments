@@ -73,7 +73,7 @@ export default {
   async created() {
     if (this.$route.query.email && this.$route.query.ref) {
       // we have email and ref querystring parameters so try to sign in automatically
-      const email = this.$route.query.email;
+      const email = this.$route.query.email.replace(/ /g, '+');  // Quick fix for #28 `+` being stripped from emails in IA links
       const ref = this.$route.query.ref;
       const returnUrl = `${window.location.protocol}//${window.location.host}/sign-in`;
       const response = await functions.httpsCallable('generateSignInWithEmailLink')({ ref: ref, email: email, returnUrl: returnUrl });
