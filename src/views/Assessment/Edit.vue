@@ -4,6 +4,7 @@
       <div class="govuk-grid-column-two-thirds">
         <a
           class="govuk-back-link"
+          :style="{ cursor: 'pointer' }"
           @click="$router.push('/assessments')"
         >View All Assessments</a>
 
