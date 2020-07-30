@@ -96,6 +96,7 @@
 </template>
 <script>
 import { isDateInFuture } from '@/helpers/date';
+import BackLink from '@/components/BackLink';
 import Form from '@/components/Form/Form';
 import ErrorSummary from '@/components/Form/ErrorSummary';
 import DownloadLink from '@/components/DownloadLink';

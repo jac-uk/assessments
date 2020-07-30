@@ -81,7 +81,7 @@
                   View Incomplete Assessment
                 </router-link>
                 <router-link
-                  v-else-if="canEdit(assessment) && !submissionPermitted(assessment)"
+                  v-else-if="!canEdit(assessment) && submissionPermitted(assessment)"
                   class="govuk-button govuk-button--primary"
                   :to="{ name: 'assessment-edit', params: { id: assessment.id }}"
                 >
@@ -143,6 +143,17 @@ export default {
           title: 'Complete',
         },
       ];
+    },
+    submissionPermitted(assessment) {
+      if(!assessment.hardLimit){
+        return true;
+      }
+
+      if(isDateInFuture(assessment.hardLimit)){
+        return true;
+      }
+
+      return false;
     },
   },
   created() {
