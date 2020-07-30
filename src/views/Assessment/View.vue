@@ -1,11 +1,12 @@
 <template>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <a
+      <router-link
         class="govuk-back-link"
-        :style="{ cursor: 'pointer' }"
-        @click="$router.push('/assessments')"
-      >View All Assessments</a>
+        to="/assessments"
+      >
+        View All Assessments
+      </router-link>
 
       <h1 class="govuk-heading-l">
         Review Assessment
