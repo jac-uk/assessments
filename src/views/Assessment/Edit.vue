@@ -2,7 +2,12 @@
   <div class="govuk-grid-row">
     <form @submit.prevent="save">
       <div class="govuk-grid-column-two-thirds">
-        <BackLink />
+        <router-link
+          class="govuk-back-link"
+          to="/assessments"
+        >
+          View All Assessments
+        </router-link>
 
         <h1 class="govuk-heading-l">
           Upload Independent Assessment
@@ -86,7 +91,6 @@
   </div>
 </template>
 <script>
-import BackLink from '@/components/BackLink';
 import Form from '@/components/Form/Form';
 import ErrorSummary from '@/components/Form/ErrorSummary';
 import DownloadLink from '@/components/DownloadLink';
@@ -94,7 +98,6 @@ import FileUpload from '@/components/Form/FileUpload';
 
 export default {
   components: {
-    BackLink,
     ErrorSummary,
     DownloadLink,
     FileUpload,
