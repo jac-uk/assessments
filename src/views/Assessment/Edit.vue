@@ -89,6 +89,10 @@
               Save and continue
             </button>
           </div>
+          <Warning 
+            v-else
+            :message="`This Independent Assessment has expired. The Selection Exercise Team can be contacted via ` + assessment.exercise.exerciseMailbox + ` or ` + assessment.exercise.exercisePhoneNumber + `.`"
+          />
         </div>
       </div>
     </form>
@@ -96,17 +100,18 @@
 </template>
 <script>
 import { isDateInFuture } from '@/helpers/date';
-import BackLink from '@/components/BackLink';
 import Form from '@/components/Form/Form';
 import ErrorSummary from '@/components/Form/ErrorSummary';
 import DownloadLink from '@/components/DownloadLink';
 import FileUpload from '@/components/Form/FileUpload';
+import Warning from '@/components/Warning';
 
 export default {
   components: {
     ErrorSummary,
     DownloadLink,
     FileUpload,
+    Warning,
   },
   extends: Form,
   data() {
