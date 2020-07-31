@@ -69,23 +69,37 @@
               <td class="govuk-table__cell">
                 {{ assessment.dueDate | formatDate }}
               </td>
-              <td class="govuk-table__cell">
+              <td 
+                v-if="!assessmentLate(assessment)"
+                class="govuk-table__cell"
+              >
                 {{ assessment.status | lookup }}
+              </td>
+              <td 
+                v-if="assessmentLate(assessment)"
+                class="govuk-table__cell"
+              >
+                <strong
+                  class="govuk-tag govuk-tag--red"
+                >
+                  Overdue
+                </strong>
               </td>
               <td class="govuk-table__cell">
                 <router-link
-                  v-if="canEdit(assessment)"
+                  v-if="canEdit(assessment) && submissionPermitted(assessment)"
                   class="govuk-button govuk-button--primary"
                   :to="{ name: 'assessment-edit', params: { id: assessment.id }}"
                 >
                   View Incomplete Assessment
                 </router-link>
                 <router-link
-                  v-else-if="!canEdit(assessment) && submissionPermitted(assessment)"
+                  v-else-if="canEdit(assessment) && !submissionPermitted(assessment)"
                   class="govuk-button govuk-button--primary"
-                  :to="{ name: 'assessment-edit', params: { id: assessment.id }}"
+                  :to="{ name: 'assessment-view', params: { id: assessment.id }}"
+                  disabled
                 >
-                  View Incomplete Assessment
+                  Assessment Expired
                 </router-link>
                 <router-link
                   v-else
@@ -144,17 +158,6 @@ export default {
         },
       ];
     },
-    submissionPermitted(assessment) {
-      if(!assessment.hardLimit){
-        return true;
-      }
-
-      if(isDateInFuture(assessment.hardLimit)){
-        return true;
-      }
-
-      return false;
-    },
   },
   created() {
     // Ideally we'd use allSettled but IE doesn't support this
@@ -179,7 +182,7 @@ export default {
     },
     submissionPermitted(assessment) {
       if(!assessment.hardLimit){
-        return false;
+        return true;
       }
 
       if(isDateInFuture(assessment.hardLimit)){
@@ -187,6 +190,9 @@ export default {
       }
 
       return false;
+    },
+    assessmentLate(assessment){
+      return !isDateInFuture(assessment.dueDate) && this.canEdit(assessment);
     },
     redirectToErrorPage() {
       this.$router.replace({ name: 'assessments-not-found' });
