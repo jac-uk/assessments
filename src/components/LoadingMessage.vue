@@ -22,9 +22,18 @@
 </template>
 
 <script>
+import { auth } from '@/firebase';
 export default {
   props: {
     loadFailed: Boolean,
+  },
+  watch: { 
+    loadFailed: function(newVal) { 
+      if(newVal == true){
+        // If we fail to load, log the user out
+        auth().signOut();
+      }
+    },
   },
 };
 </script>

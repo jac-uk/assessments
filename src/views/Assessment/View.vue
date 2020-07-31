@@ -1,7 +1,12 @@
 <template>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <BackLink />
+      <router-link
+        class="govuk-back-link"
+        to="/assessments"
+      >
+        View All Assessments
+      </router-link>
 
       <h1 class="govuk-heading-l">
         Review Assessment
@@ -71,12 +76,10 @@
 <script>
 import { mapState } from 'vuex';
 
-import BackLink from '@/components/BackLink';
 import DownloadLink from '@/components/DownloadLink';
 
 export default {
   components: {
-    BackLink,
     DownloadLink,
   },
   computed: {
