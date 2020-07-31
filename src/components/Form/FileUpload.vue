@@ -85,7 +85,7 @@ export default {
       file: '',
       isReplacing: false,
       isUploading: false,
-      acceptableExtensions: ['docx', 'doc', 'odf'],
+      acceptableExtensions: ['docx', 'doc', 'odt', 'fodt', 'txt'],
     };
   },
   computed: {
