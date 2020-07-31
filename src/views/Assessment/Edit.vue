@@ -48,6 +48,12 @@
               </dt>
               <dd class="govuk-summary-list__value">
                 {{ assessment.dueDate | formatDate }}
+                <strong
+                  v-if="assessmentLate"
+                  class="govuk-tag govuk-tag--red"
+                >
+                  Overdue
+                </strong>
               </dd>
             </div>
           </dl>
@@ -133,6 +139,9 @@ export default {
     },
     assessorId() {
       return this.$store.getters['auth/currentUserId'];
+    },
+    assessmentLate(){
+      return !isDateInFuture(this.assessment.dueDate);
     },
     submissionPermitted() {
       if(!this.assessment.hardLimit){
