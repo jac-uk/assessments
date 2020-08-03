@@ -1,3 +1,4 @@
+import firebase from '@firebase/app';
 import { firestore } from '@/firebase';
 import { firestoreAction } from 'vuexfire';
 import vuexfireSerialize from '@/helpers/vuexfireSerialize';
@@ -17,6 +18,12 @@ export default {
       return unbindFirestoreRef('record');
     }),
     save: async ({ state }, data) => {
+      // Update the CRUD timestamps
+      if(!data.submittedDate){
+        data.submittedDate = firebase.firestore.FieldValue.serverTimestamp();
+      }
+      data.updatedDate = firebase.firestore.FieldValue.serverTimestamp();
+
       const ref = collection.doc(state.record.id);
       await ref.set(data, { merge: true });
     },

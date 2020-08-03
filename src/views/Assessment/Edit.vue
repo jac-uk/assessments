@@ -50,6 +50,17 @@
                 {{ assessment.dueDate | formatDate }}
               </dd>
             </div>
+            <div 
+              v-if="assessment.updatedDate"
+              class="govuk-summary-list__row"
+            >
+              <dt class="govuk-summary-list__key">
+                Last uploaded
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {{ assessment.updatedDate | formatDate }}
+              </dd>
+            </div>
           </dl>
 
           <p class="govuk-body-l">
