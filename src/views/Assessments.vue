@@ -70,20 +70,9 @@
                 {{ assessment.dueDate | formatDate }}
               </td>
               <td 
-                v-if="!assessmentLate(assessment)"
                 class="govuk-table__cell"
               >
                 {{ assessment.status | lookup }}
-              </td>
-              <td 
-                v-if="assessmentLate(assessment)"
-                class="govuk-table__cell"
-              >
-                <strong
-                  class="govuk-tag govuk-tag--red"
-                >
-                  Overdue
-                </strong>
               </td>
               <td class="govuk-table__cell">
                 <router-link
