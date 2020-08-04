@@ -48,16 +48,13 @@
               </dt>
               <dd class="govuk-summary-list__value">
                 {{ assessment.dueDate | formatDate }}
-                <strong
-                  v-if="assessmentLate"
-                  class="govuk-tag govuk-tag--red"
-                >
-                  Overdue
-                </strong>
               </dd>
             </div>
           </dl>
-
+          <Warning 
+            v-if="assessmentLate && submissionPermitted"
+            :message="`This Independent Assessment is past the due date. The Selection Exercise Team can be contacted via ` + assessment.exercise.exerciseMailbox + ` or ` + assessment.exercise.exercisePhoneNumber + `.`"
+          />
           <div
             v-if="submissionPermitted"
           >
