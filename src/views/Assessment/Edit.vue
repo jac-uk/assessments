@@ -62,56 +62,70 @@
               </dd>
             </div>
           </dl>
-
-          <p class="govuk-body-l">
-            Download the template on this page to complete your assessment.
-          </p>
-
-          <p class="govuk-body-l">
-            Come back to this page to upload your finished assessment.
-          </p>
-
-          <div class="govuk-form-group">
-            <h2 class="govuk-heading-m">
-              Download self assessment template
-            </h2>
-
-            <DownloadLink
-              :file-name="assessment.exercise.template.file"
-              :exercise-id="assessment.exercise.id"
-              :title="assessment.exercise.template.title"
-            />
-          </div>
-
-          <FileUpload
-            id="independent-assessment-file"
-            ref="independent-assessment-file"
-            v-model="assessment.fileRef"
-            :name="fileName"
-            :path="uploadPath"
-            label="Please upload your assessment here"
-            required
+          <Warning 
+            v-if="assessmentLate && submissionPermitted"
+            :message="`This Independent Assessment is past the due date. The Selection Exercise Team can be contacted via ` + assessment.exercise.exerciseMailbox + ` or ` + assessment.exercise.exercisePhoneNumber + `.`"
           />
+          <div
+            v-if="submissionPermitted"
+          >
+            <p class="govuk-body-l">
+              Download the template on this page to complete your assessment.
+            </p>
 
-          <button class="govuk-button">
-            Save and continue
-          </button>
+            <p class="govuk-body-l">
+              Come back to this page to upload your finished assessment.
+            </p>
+
+            <div class="govuk-form-group">
+              <h2 class="govuk-heading-m">
+                Download self assessment template
+              </h2>
+
+              <DownloadLink
+                :file-name="assessment.exercise.template.file"
+                :exercise-id="assessment.exercise.id"
+                :title="assessment.exercise.template.title"
+              />
+            </div>
+
+            <FileUpload
+              id="independent-assessment-file"
+              ref="independent-assessment-file"
+              v-model="assessment.fileRef"
+              :name="fileName"
+              :path="uploadPath"
+              label="Please upload your assessment here"
+              required
+            />
+
+            <button class="govuk-button">
+              Save and continue
+            </button>
+          </div>
+          <Warning 
+            v-else
+            :message="`This Independent Assessment has expired. The Selection Exercise Team can be contacted via ` + assessment.exercise.exerciseMailbox + ` or ` + assessment.exercise.exercisePhoneNumber + `.`"
+          />
         </div>
       </div>
     </form>
   </div>
 </template>
 <script>
+import { isDateInFuture } from '@/helpers/date';
 import Form from '@/components/Form/Form';
 import ErrorSummary from '@/components/Form/ErrorSummary';
 import DownloadLink from '@/components/DownloadLink';
 import FileUpload from '@/components/Form/FileUpload';
+import Warning from '@/components/Warning';
 
 export default {
   components: {
     ErrorSummary,
     DownloadLink,
     FileUpload,
+    Warning,
   },
   extends: Form,
   data() {
@@ -133,6 +147,20 @@ export default {
     },
     assessorId() {
       return this.$store.getters['auth/currentUserId'];
+    },
+    assessmentLate(){
+      return !isDateInFuture(this.assessment.dueDate);
+    },
+    submissionPermitted() {
+      if(!this.assessment.hardLimit){
+        return true;
+      }
+
+      if(isDateInFuture(this.assessment.hardLimit)){
+        return true;
+      }
+
+      return false;
     },
     uploadPath() {
       const exerciseId = this.assessment.exercise.id;
