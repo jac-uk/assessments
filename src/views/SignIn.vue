@@ -1,72 +1,33 @@
 <template>
   <div>
-    <div
-      v-if="emailLinkSent"
-      class="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-6"
-    >
-      <h1 class="govuk-panel__title">
-        Sign in link sent
-      </h1>
-      <div class="govuk-panel__body">
-        An email has been sent to {{ formData.email }}.<br>
-        Please follow the link in the email to complete sign in.
-      </div>
-    </div>    
     <LoadingMessage
-      v-else-if="loading"
+      v-if="loading"
       :load-failed="loadFailed"
     />
-    <div
-      v-else
-      class="govuk-grid-row"
-    >
-      <form @submit.prevent="loginWithEmail">
-        <div class="govuk-grid-column-two-thirds">
-          <h1 class="govuk-heading-l">
-            Sign in
-          </h1>
-
-          <ErrorSummary :errors="errors" />
-
-          <TextField
-            id="email"
-            v-model="formData.email"
-            label="Email address"
-            type="email"
-            required
-          />
-
-          <button class="govuk-button">
-            Continue
-          </button>
-
-          <p class="govuk-body">
-            Problems signing in? Make sure you use the same email address we previously contacted you with.
-          </p>
-        </div>
-      </form>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">
+          Assessments
+        </h1>
+        <p class="govuk-body">
+          Problems signing in? Make sure you use the same email address we previously contacted you with.
+        </p>
+      </div>
     </div>
   </div>
 </template>
 <script>
 import LoadingMessage from '@/components/LoadingMessage';
-import ErrorSummary from '@/components/Form/ErrorSummary';
-import Form from '@/components/Form/Form';
-import TextField from '@/components/Form/TextField';
 import { auth, functions } from '@/firebase';
 
 export default {
   components: {
     LoadingMessage,
-    ErrorSummary,
-    TextField,
   },
-  extends: Form,
   data() {
     return {
       loading: true,
       loadFailed: false,
-      emailLinkSent: false,
       formData: {},
     };
   },
@@ -100,22 +61,5 @@ export default {
     }
     this.loading = false;
   },
-  methods: {
-    async loginWithEmail() {
-      this.validate();
-      if (this.isValid()) {
-        this.loading = true;
-        const actionCodeSettings = {
-          url: `${window.location.protocol}//${window.location.host}/sign-in?return=true`,
-          handleCodeInApp: true,
-        };
-        await auth().sendSignInLinkToEmail(this.formData.email, actionCodeSettings);
-        window.localStorage.setItem('emailForSignIn', this.formData.email);
-        window.localStorage.setItem('signInDestination', '/assessments');
-        this.loading = false;
-        this.emailLinkSent = true;
-      }
-    },
-  },  
 };
 </script>
