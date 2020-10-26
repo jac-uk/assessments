@@ -7,10 +7,12 @@ import { auth } from '@/firebase';
 import * as Sentry from '@sentry/browser';
 import * as Integrations from '@sentry/integrations';
 
-if (process.env.NODE_ENV !== 'development') {
+const host = window.location.host;
+const parts = host.split('.');
+if (process.env.NODE_ENV !== 'development' && !host.includes('-develop')) {
   Sentry.init({
     dsn: 'https://23ac92825117451eb421535be7e4c334@o323827.ingest.sentry.io/5301649',
-    environment: process.env.NODE_ENV,
+    environment: parts[0] == 'assessments' ? 'production' : 'staging',
     release: process.env.npm_package_version,
     integrations: [new Integrations.Vue({ Vue, attachProps: true })],
   });
