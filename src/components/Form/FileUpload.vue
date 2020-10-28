@@ -23,12 +23,12 @@
       v-if="haveFile && !isReplacing && !file"
       class="govuk-body-m"
     >
-      Your file has been received.
+      Your file has been {{ hasReplaced ? 'replaced' : 'received' }}.
       <a
         href="javascript:void(0)"
         class="govuk-link"
         @click.prevent="replaceFile"
-      >Replace</a>
+      >{{ hasReplaced ? 'Replace again' : 'Replace' }}</a>
     </p>
     <p v-else-if="isUploading">
       Uploading...
@@ -83,6 +83,7 @@ export default {
   data() {
     return {
       file: '',
+      hasReplaced: false,
       isReplacing: false,
       isUploading: false,
       acceptableExtensions: ['docx', 'doc', 'odt', 'fodt', 'txt'],
@@ -113,6 +114,7 @@ export default {
   },
   methods: {
     replaceFile() {
+      this.hasReplaced = true;
       this.isReplacing = true;
     },
     fileSelected() {
