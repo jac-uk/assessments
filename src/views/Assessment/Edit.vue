@@ -51,6 +51,16 @@
               </dd>
             </div>
             <div 
+            v-if="assessment.hardLimit && pastDueDate"
+            class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                <b> Cut off date </b> 
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {{ assessment.hardLimit | formatDate }}
+              </dd>
+            </div>
+            <div 
               v-if="assessment.updatedDate"
               class="govuk-summary-list__row"
             >
@@ -66,6 +76,7 @@
             v-if="assessmentLate && submissionPermitted"
             :message="`This Independent Assessment is past the due date. The Selection Exercise Team can be contacted via ` + assessment.exercise.exerciseMailbox + ` or ` + assessment.exercise.exercisePhoneNumber + `.`"
           />
+
           <div
             v-if="submissionPermitted"
           >
@@ -161,6 +172,9 @@ export default {
       }
 
       return false;
+    },
+    pastDueDate() {
+      return !isDateInFuture(this.assessment.dueDate);
     },
     uploadPath() {
       const exerciseId = this.assessment.exercise.id;
