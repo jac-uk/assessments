@@ -44,6 +44,7 @@ export default {
         return window.location.replace(response.data.result);
       } else {
         // console.log('mal-formed request');
+        this.signOut();
       }
     } else if (this.$route.query.return) {
       // we have 'return' flag set so try to complete sign in
@@ -60,6 +61,11 @@ export default {
       }
     }
     this.loading = false;
+  },
+  methods: {
+    async signOut() {
+      await auth().signOut();
+    },
   },
 };
 </script>
