@@ -51,13 +51,13 @@
               </dd>
             </div>
             <div 
-            v-if="assessment.hardLimit && pastDueDate"
+            v-if="assessment.hardLimitDate && pastDueDate"
             class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key">
                 <b> Cut off date </b> 
               </dt>
               <dd class="govuk-summary-list__value">
-                {{ assessment.hardLimit | formatDate }}
+                {{ assessment.hardLimitDate | formatDate }}
               </dd>
             </div>
             <div 
@@ -163,11 +163,11 @@ export default {
       return !isDateInFuture(this.assessment.dueDate);
     },
     submissionPermitted() {
-      if(!this.assessment.hardLimit){
+      if(!this.assessment.hardLimitDate){
         return true;
       }
 
-      if(isDateInFuture(this.assessment.hardLimit)){
+      if(isDateInFuture(this.assessment.hardLimitDate)){
         return true;
       }
 

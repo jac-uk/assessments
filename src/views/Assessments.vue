@@ -170,11 +170,11 @@ export default {
       return assessment.status === 'pending';
     },
     submissionPermitted(assessment) {
-      if(!assessment.hardLimit){
+      if(!assessment.hardLimitDate){
         return true;
       }
 
-      if(isDateInFuture(assessment.hardLimit)){
+      if(isDateInFuture(assessment.hardLimitDate)){
         return true;
       }
 
