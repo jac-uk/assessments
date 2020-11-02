@@ -99,7 +99,10 @@
               required
             />
 
-            <button class="govuk-button">
+            <button 
+              class="govuk-button" 
+              :disabled="isSaveDisabled"
+            >
               Save and continue
             </button>
           </div>
@@ -136,6 +139,7 @@ export default {
     const assessment = { ...defaults, ...data };
     return {
       assessment: assessment,
+      isSaveDisabled: false,
     };
   },
   computed: {
@@ -173,10 +177,13 @@ export default {
     async save() {
       this.validate();
       if (this.isValid()) {
+        this.isSaveDisabled = true;
         this.assessment.status = 'completed';
         this.assessment.assessor.id = this.$store.state.auth.currentUser.uid;
         await this.$store.dispatch('assessment/save', this.assessment);
         this.$router.push({ name: 'assessment-success' });
+      } else {
+        this.isSaveDisabled = false;
       }
     },
   },
