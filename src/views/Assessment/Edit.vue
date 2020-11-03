@@ -50,17 +50,18 @@
                 {{ assessment.dueDate | formatDate }}
               </dd>
             </div>
-            <div 
-            v-if="assessment.hardLimitDate && pastDueDate"
-            class="govuk-summary-list__row">
+            <div
+              v-if="assessment.hardLimitDate && pastDueDate"
+              class="govuk-summary-list__row"
+            >
               <dt class="govuk-summary-list__key">
-                <b> Cut off date </b> 
+                <b> Cut off date </b>
               </dt>
               <dd class="govuk-summary-list__value">
                 {{ assessment.hardLimitDate | formatDate }}
               </dd>
             </div>
-            <div 
+            <div
               v-if="assessment.updatedDate"
               class="govuk-summary-list__row"
             >
@@ -72,11 +73,10 @@
               </dd>
             </div>
           </dl>
-          <Warning 
+          <Warning
             v-if="assessmentLate && submissionPermitted"
             :message="`This Independent Assessment is past the due date. The Selection Exercise Team can be contacted via ` + assessment.exercise.exerciseMailbox + ` or ` + assessment.exercise.exercisePhoneNumber + `.`"
           />
-
           <div
             v-if="submissionPermitted"
           >
@@ -110,14 +110,18 @@
               required
             />
 
-            <button 
-              class="govuk-button" 
+            <button
+              class="govuk-button"
               :disabled="isSaveDisabled"
             >
               Save and continue
             </button>
           </div>
-          <Warning 
+          <Warning
+            v-else-if="isCompleted"
+            :message="`This Independent Assessment has been completed. The Selection Exercise Team can be contacted via ` + assessment.exercise.exerciseMailbox + ` or ` + assessment.exercise.exercisePhoneNumber + `.`"
+          />
+          <Warning
             v-else
             :message="`This Independent Assessment has expired. The Selection Exercise Team can be contacted via ` + assessment.exercise.exerciseMailbox + ` or ` + assessment.exercise.exercisePhoneNumber + `.`"
           />
@@ -163,18 +167,22 @@ export default {
     assessorId() {
       return this.$store.getters['auth/currentUserId'];
     },
+    isCompleted() {
+      return this.assessment.status === 'completed';
+    },
     assessmentLate(){
       return !isDateInFuture(this.assessment.dueDate);
     },
     submissionPermitted() {
-      if(!this.assessment.hardLimitDate){
+      if (this.isCompleted) {
+        return false;
+      }
+      if (!this.assessment.hardLimitDate){
         return true;
       }
-
-      if(isDateInFuture(this.assessment.hardLimitDate)){
+      if (isDateInFuture(this.assessment.hardLimitDate)){
         return true;
       }
-
       return false;
     },
     pastDueDate() {
