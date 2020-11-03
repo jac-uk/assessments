@@ -38,7 +38,7 @@ export default {
       const ref = this.$route.query.ref;
       const returnUrl = `${window.location.protocol}//${window.location.host}/sign-in`;
       const response = await functions.httpsCallable('generateSignInWithEmailLink')({ ref: ref, email: email, returnUrl: returnUrl });
-      if (response.data.result) {
+      if (response && response.data && response.data.result) {
         window.localStorage.setItem('emailForSignIn', email);
         window.localStorage.setItem('signInDestination', ref + '/upload');
         return window.location.replace(response.data.result);
