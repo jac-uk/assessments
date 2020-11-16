@@ -105,7 +105,8 @@
               ref="independent-assessment-file"
               v-model="assessment.fileRef"
               :name="fileName"
-              :path="uploadPath"
+              :path="buildFileFolder"
+              :file-path="assessment.filePath"
               label="Please upload your assessment here"
               required
             />
@@ -188,7 +189,7 @@ export default {
     pastDueDate() {
       return !isDateInFuture(this.assessment.dueDate);
     },
-    uploadPath() {
+    buildFileFolder() {
       const exerciseId = this.assessment.exercise.id;
       const applicationId = this.assessment.application.id;
       const assessorId = this.assessorId;
@@ -202,6 +203,7 @@ export default {
         this.isSaveDisabled = true;
         this.assessment.status = 'completed';
         this.assessment.assessor.id = this.$store.state.auth.currentUser.uid;
+        this.assessment.filePath = this.buildFileFolder + '/' + this.assessment.fileRef;
         await this.$store.dispatch('assessment/save', this.assessment);
         this.$router.push({ name: 'assessment-success' });
       } else {
