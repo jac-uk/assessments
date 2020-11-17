@@ -9,6 +9,15 @@
         <h1 class="govuk-heading-l">
           Assessments
         </h1>
+        <div v-if="loginFail" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary" class="govuk-error-summary">
+          <h2 id="error-summary-title" class="govuk-error-summary__title"> There is a problem </h2>
+          <div class="govuk-error-summary__body">
+            <ul class="govuk-list govuk-error-summary__list">
+              <li>You may have the wrong link, or</li>
+              <li>Your assessment is no longer required.</li>
+            </ul>
+          </div>
+        </div>
         <p class="govuk-body">
           Problems signing in? Make sure you use the same email address we previously contacted you with.
         </p>
@@ -29,6 +38,7 @@ export default {
       loading: true,
       loadFailed: false,
       formData: {},
+      loginFail: false,
     };
   },
   async created() {
@@ -44,6 +54,7 @@ export default {
         return window.location.replace(response.data.result);
       } else {
         // console.log('mal-formed request');
+        this.loginFail = true;
         this.signOut();
       }
     } else if (this.$route.query.return) {
@@ -57,6 +68,8 @@ export default {
           window.localStorage.removeItem('signInDestination');
           await this.$store.dispatch('auth/setCurrentUser', result.user);
           this.$router.replace(ref);
+        } else {
+          this.loginFail = true;
         }
       }
     }
