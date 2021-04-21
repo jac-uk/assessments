@@ -19,6 +19,7 @@
   "dependencies": {
     "@firebase/app": "^0.6.2",
     "@firebase/storage": "^0.3.32",
+    "@jac-uk/jac-kit": "0.0.36",
     "@sentry/browser": "^5.18.1",
     "@sentry/integrations": "^5.18.1",
     "core-js": "^3.6.5",
