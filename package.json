@@ -1,14 +1,14 @@
 {
   "name": "assessment-uploader",
-  "version": "0.12.0",
+  "version": "0.11.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --mode develop",
     "build": "vue-cli-service build --mode develop",
     "lint": "vue-cli-service lint",
     "lint-ci": "vue-cli-service lint --no-fix",
-    "test": "vue-cli-service test:unit",
-    "test-ci": "vue-cli-service test:unit --ci --runInBand",
+    "test": "echo No tests configured in this project",
+    "test-ci": "echo No tests configured in this project",
     "develop:build": "vue-cli-service build --mode develop",
     "develop:deploy": "vue-cli-service build --mode develop; firebase deploy --only hosting:develop-assessments-app --project digital-platform-develop",
     "staging:build": "vue-cli-service build --mode staging",
