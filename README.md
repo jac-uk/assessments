@@ -1,5 +1,4 @@
 # Assessment Uploader
-
 Independent assessors get a link to this page to upload their assessments.
 
 ## Project setup
