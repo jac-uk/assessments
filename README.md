@@ -19,12 +19,12 @@ npm run build
 
 ### Deploys to staging environment
 ```
-npm run deploy-staging
+npm run staging:deploy
 ```
 
 ### Deploys to production environment
 ```
-npm run deploy-production
+npm run production:deploy
 ```
 
 ### Lints and fixes files
