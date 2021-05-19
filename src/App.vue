@@ -1,8 +1,5 @@
 <template>
-  <div 
-    style="background-color:orange"
-    class="govuk-width-container"
-  >
+  <div class="govuk-width-container">
     <div class="govuk-main-wrapper">
       <header class="header">
         <div class="govuk-grid-row">
