@@ -22,7 +22,7 @@
     "@sentry/browser": "^5.18.1",
     "@sentry/integrations": "^5.18.1",
     "core-js": "^3.6.5",
-    "firebase": "^7.14.2",
+    "firebase": "^7.24.0",
     "govuk-frontend": "^3.6.0",
     "vue": "^2.6.11",
     "vue-router": "^3.1.6",
