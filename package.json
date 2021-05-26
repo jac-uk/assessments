@@ -17,7 +17,7 @@
     "production:deploy": "vue-cli-service build --mode production; firebase deploy --only hosting:production-assessments-app --project platform-production-9207d"
   },
   "dependencies": {
-    "@firebase/app": "^0.6.2",
+    "@firebase/app": "^0.6.20",
     "@firebase/storage": "^0.3.32",
     "@sentry/browser": "^5.30.0",
     "@sentry/integrations": "^5.30.0",
