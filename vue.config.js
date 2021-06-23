@@ -6,7 +6,7 @@ module.exports = {
     loaderOptions: {
       sass: {
         // always import main.scss first
-        prependData: '@import "@/main.scss";',
+        additionalData: '@import "@/main.scss";',
       },
     },
   },
