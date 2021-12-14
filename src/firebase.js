@@ -19,6 +19,12 @@ const functions = firebase.initializeApp(config).functions('europe-west2');
 // Initialise Firestore
 const firestore = firebase.firestore();
 
+// App check
+const appCheck = firebase.appCheck();
+if (process.env.VUE_APP_RECAPTCHA_TOKEN) {
+  appCheck.activate(process.env.VUE_APP_RECAPTCHA_TOKEN);
+}
+
 // Other firebase exports
 const auth = firebase.auth;
 
