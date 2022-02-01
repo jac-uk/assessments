@@ -1,6 +1,6 @@
 {
   "name": "assessment-uploader",
-  "version": "0.16.0",
+  "version": "0.18.0",
   "private": true,
   "scripts": {
     "preinstall": "npx npm-force-resolutions",
@@ -18,12 +18,11 @@
     "production:deploy": "vue-cli-service build --mode production; firebase deploy --only hosting:production-assessments-app --project platform-production-9207d"
   },
   "dependencies": {
-    "@firebase/app": "^0.6.2",
-    "@firebase/storage": "^0.3.32",
+    "@jac-uk/jac-kit": "0.0.36",
     "@sentry/browser": "^5.30.0",
     "@sentry/integrations": "^5.30.0",
     "core-js": "^3.6.5",
-    "firebase": "^7.14.2",
+    "firebase": "^8.6.0",
     "govuk-frontend": "^3.12.0",
     "vue": "^2.6.12",
     "vue-router": "^3.5.1",
@@ -38,10 +37,10 @@
     "clone": "^2.1.2",
     "eslint": "^6.8.0",
     "eslint-plugin-vue": "^6.2.2",
-    "vue-template-compiler": "^2.6.12",
     "postcss": "8.2.15",
     "sass": "^1.32.13",
     "sass-loader": "^10.2.0",
+    "vue-template-compiler": "^2.6.12",
     "webpack": "^4.44.1"
   },
   "peerDependencies": {

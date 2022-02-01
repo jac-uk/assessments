@@ -136,7 +136,7 @@ import { isDateInFuture } from '@/helpers/date';
 import Form from '@/components/Form/Form';
 import ErrorSummary from '@/components/Form/ErrorSummary';
 import DownloadLink from '@/components/DownloadLink';
-import FileUpload from '@/components/Form/FileUpload';
+import FileUpload from '@jac-uk/jac-kit/draftComponents/Form/FileUpload';
 import Warning from '@/components/Warning';
 
 export default {
@@ -213,4 +213,3 @@ export default {
   },
 };
 </script>
-
