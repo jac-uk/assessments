@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/functions';
+import 'firebase/app-check';
 
 // Configure and initialise Firebase
 // Config variables are pulled from the environment at build time
@@ -16,8 +17,18 @@ const config = {
 };
 const functions = firebase.initializeApp(config).functions('europe-west2');
 
+if (process.env.VUE_APP_USE_FUNCTIONS_EMULATOR === 'true') {
+  functions.useEmulator('http://localhost', '5001');
+}
+
 // Initialise Firestore
 const firestore = firebase.firestore();
+
+// App check
+const appCheck = firebase.appCheck();
+if (process.env.VUE_APP_RECAPTCHA_TOKEN) {
+  appCheck.activate(process.env.VUE_APP_RECAPTCHA_TOKEN);
+}
 
 // Other firebase exports
 const auth = firebase.auth;
