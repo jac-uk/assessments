@@ -15,14 +15,17 @@
     "staging:build": "vue-cli-service build --mode staging",
     "staging:deploy": "vue-cli-service build --mode staging; firebase deploy --only hosting:staging-assessments-app --project digital-platform-staging",
     "production:build": "vue-cli-service build --mode production",
-    "production:deploy": "vue-cli-service build --mode production; firebase deploy --only hosting:production-assessments-app --project platform-production-9207d"
+    "production:deploy": "vue-cli-service build --mode production; firebase deploy --only hosting:production-assessments-app --project platform-production-9207d",
+    "deploy-service-offline:develop": "rm -rf dist; mkdir dist; cp service-offline/index.html dist/index.html; firebase deploy --only hosting:develop-assessments-app -P develop",
+    "deploy-service-offline:staging": "rm -rf dist; mkdir dist; cp service-offline/index.html dist/index.html; firebase deploy --only hosting:staging-assessments-app -P staging",
+    "deploy-service-offline:production": "rm -rf dist; mkdir dist; cp service-offline/index.html dist/index.html; firebase deploy --only hosting:production-assessments-app -P production"
   },
   "dependencies": {
     "@jac-uk/jac-kit": "0.0.36",
     "@sentry/browser": "^5.30.0",
     "@sentry/integrations": "^5.30.0",
     "core-js": "^3.6.5",
-    "firebase": "^8.6.0",
+    "firebase": "8.10.1",
     "govuk-frontend": "^3.12.0",
     "vue": "^2.6.12",
     "vue-router": "^3.5.1",
