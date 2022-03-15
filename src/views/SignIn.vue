@@ -31,7 +31,7 @@
           </div>
         </div>
         <p class="govuk-body">
-          Problems signing in? Please contact enquiries@judicialappointments.gov.uk using same email address we have contacted you with.
+          Problems signing in? Please contact enquiries@judicialappointments.gov.uk using the same email address we have contacted you with.
         </p>
       </div>
     </div>
