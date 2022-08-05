@@ -16,9 +16,9 @@
     "staging:deploy": "vue-cli-service build --mode staging; firebase deploy --only hosting:staging-assessments-app --project digital-platform-staging",
     "production:build": "vue-cli-service build --mode production",
     "production:deploy": "vue-cli-service build --mode production; firebase deploy --only hosting:production-assessments-app --project platform-production-9207d",
-    "deploy-service-offline:develop": "rm -rf dist; mkdir dist; cp service-offline/index.html dist/index.html; firebase deploy --only hosting:develop-assessments-app -P develop",
-    "deploy-service-offline:staging": "rm -rf dist; mkdir dist; cp service-offline/index.html dist/index.html; firebase deploy --only hosting:staging-assessments-app -P staging",
-    "deploy-service-offline:production": "rm -rf dist; mkdir dist; cp service-offline/index.html dist/index.html; firebase deploy --only hosting:production-assessments-app -P production"
+    "develop:deploy-service-offline": "rm -rf dist; mkdir dist; cp service-offline/index.html dist/index.html; firebase deploy --only hosting:develop-assessments-app -P develop",
+    "staging:deploy-service-offline": "rm -rf dist; mkdir dist; cp service-offline/index.html dist/index.html; firebase deploy --only hosting:staging-assessments-app -P staging",
+    "production:deploy-service-offline": "rm -rf dist; mkdir dist; cp service-offline/index.html dist/index.html; firebase deploy --only hosting:production-assessments-app -P production"
   },
   "dependencies": {
     "@jac-uk/jac-kit": "0.0.36",
