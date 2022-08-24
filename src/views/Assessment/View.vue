@@ -55,7 +55,7 @@
               Last uploaded
             </dt>
             <dd class="govuk-summary-list__value">
-              {{ assessment.updatedDate | formatDate }}
+              {{ assessment.updatedDate | formatDate('datetime') }}
             </dd>
           </div>
         </dl>

@@ -58,7 +58,7 @@
                 <b> Cut off date </b>
               </dt>
               <dd class="govuk-summary-list__value">
-                {{ assessment.hardLimitDate | formatDate }}
+                {{ assessment.hardLimitDate | formatDate('datetime') }}
               </dd>
             </div>
             <div
@@ -69,7 +69,7 @@
                 Last uploaded
               </dt>
               <dd class="govuk-summary-list__value">
-                {{ assessment.updatedDate | formatDate }}
+                {{ assessment.updatedDate | formatDate('datetime') }}
               </dd>
             </div>
           </dl>
