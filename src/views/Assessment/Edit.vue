@@ -108,7 +108,7 @@
               :path="buildFileFolder"
               :file-path="assessment.filePath"
               label="Please upload your assessment here"
-              required
+              :required="!isDeclined"
             />
 
             <RadioGroup
