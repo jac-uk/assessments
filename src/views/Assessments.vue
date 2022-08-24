@@ -17,7 +17,10 @@
           :active-tab.sync="activeTab"
         />
         <table
-          v-if="(activeTab == 'pending' && assessmentsPending.length) || (activeTab == 'complete' && assessmentsComplete.length)"
+          v-if="(activeTab == 'pending' && assessmentsPending.length) || 
+            (activeTab == 'decline' && assessmentsDecline.length) || 
+            (activeTab == 'complete' && assessmentsComplete.length)
+          "
           class="govuk-table table-with-border"
         >
           <thead class="govuk-table__head">
@@ -50,13 +53,13 @@
                 scope="col"
                 class="govuk-table__header"
               >
-                Actions
+                {{ activeTab === 'decline' ? 'Reason' : 'Actions' }}
               </th>
             </tr>
           </thead>
           <tbody class="govuk-table__body">
             <tr
-              v-for="assessment in (activeTab == 'complete') ? assessmentsComplete : assessmentsPending"
+              v-for="assessment in (activeTab == 'complete') ? assessmentsComplete : (activeTab == 'decline') ? assessmentsDecline : assessmentsPending"
               :key="assessment.id"
               class="govuk-table__row"
             >
@@ -67,7 +70,7 @@
                 {{ assessment.candidate.fullName }}
               </td>
               <td class="govuk-table__cell">
-                {{ assessment.dueDate | formatDate }}
+                {{ assessment.dueDate | formatDate('datetime') }}
               </td>
               <td 
                 class="govuk-table__cell"
@@ -75,28 +78,33 @@
                 {{ assessment.status | lookup }}
               </td>
               <td class="govuk-table__cell">
-                <router-link
-                  v-if="canEdit(assessment) && submissionPermitted(assessment)"
-                  class="govuk-button govuk-button--primary"
-                  :to="{ name: 'assessment-edit', params: { id: assessment.id }}"
-                >
-                  View Incomplete Assessment
-                </router-link>
-                <router-link
-                  v-else-if="canEdit(assessment) && !submissionPermitted(assessment)"
-                  class="govuk-button govuk-button--primary"
-                  :to="{ name: 'assessment-view', params: { id: assessment.id }}"
-                  disabled
-                >
-                  Assessment Expired
-                </router-link>
-                <router-link
-                  v-else
-                  class="govuk-button govuk-button--secondary"
-                  :to="{ name: 'assessment-view', params: { id: assessment.id }}"
-                >
-                  Review Completed Assessment
-                </router-link>
+                <span v-if="activeTab === 'decline'">
+                  {{ assessment.declineReason }}
+                </span>
+                <div v-else>
+                  <router-link
+                    v-if="canEdit(assessment) && submissionPermitted(assessment)"
+                    class="govuk-button govuk-button--primary"
+                    :to="{ name: 'assessment-edit', params: { id: assessment.id }}"
+                  >
+                    View Incomplete Assessment
+                  </router-link>
+                  <router-link
+                    v-else-if="canEdit(assessment) && !submissionPermitted(assessment)"
+                    class="govuk-button govuk-button--primary"
+                    :to="{ name: 'assessment-view', params: { id: assessment.id }}"
+                    disabled
+                  >
+                    Assessment Expired
+                  </router-link>
+                  <router-link
+                    v-else
+                    class="govuk-button govuk-button--secondary"
+                    :to="{ name: 'assessment-view', params: { id: assessment.id }}"
+                  >
+                    Review Completed Assessment
+                  </router-link>
+                </div>
               </td>
             </tr>
           </tbody>
@@ -132,14 +140,19 @@ export default {
   computed: {
     ...mapState({
       assessmentsPending: state => state.assessments.pending,
+      assessmentsDecline: state => state.assessments.decline,
       assessmentsComplete: state => state.assessments.complete,
       currentUser: state => state.auth.currentUser,
     }),
-    tabs(){
+    tabs() {
       return [
         {
           ref: 'pending',
           title: 'Pending',
+        },
+        {
+          ref: 'decline',
+          title: 'Decline',
         },
         {
           ref: 'complete',
@@ -152,6 +165,7 @@ export default {
     // Ideally we'd use allSettled but IE doesn't support this
     Promise.all([
       this.$store.dispatch('assessments/bindPending', this.currentUser.email),
+      this.$store.dispatch('assessments/bindDecline', this.currentUser.email),
       this.$store.dispatch('assessments/bindComplete', this.currentUser.email),
     ]).then((data) => {
       if(data === null) {
