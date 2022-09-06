@@ -19,8 +19,8 @@
   },
   "dependencies": {
     "@jac-uk/jac-kit": "0.0.36",
-    "@sentry/browser": "^5.30.0",
-    "@sentry/integrations": "^5.30.0",
+    "@sentry/browser": "^7.12.1",
+    "@sentry/integrations": "^7.12.1",
     "core-js": "^3.6.5",
     "firebase": "^8.6.0",
     "govuk-frontend": "^3.12.0",
