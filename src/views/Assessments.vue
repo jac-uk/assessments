@@ -154,7 +154,7 @@ export default {
       this.$store.dispatch('assessments/bindPending', this.currentUser.email),
       this.$store.dispatch('assessments/bindComplete', this.currentUser.email),
     ]).then((data) => {
-      if(data === null) {
+      if (data === null) {
         this.redirectToErrorPage();
       }
       else {
@@ -170,11 +170,11 @@ export default {
       return assessment.status === 'pending';
     },
     submissionPermitted(assessment) {
-      if(!assessment.hardLimitDate){
+      if (!assessment.hardLimitDate){
         return true;
       }
 
-      if(isDateInFuture(assessment.hardLimitDate)){
+      if (isDateInFuture(assessment.hardLimitDate)){
         return true;
       }
 
