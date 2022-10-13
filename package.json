@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "preinstall": "npx npm-force-resolutions",
-    "develop:serve": "vue-cli-service serve --mode develop",
+    "serve": "vue-cli-service serve --mode develop",
     "staging:serve": "vue-cli-service serve --mode staging",
     "production:serve": "vue-cli-service serve --mode production",
     "develop:build": "vue-cli-service build --mode develop",
