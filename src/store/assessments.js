@@ -6,7 +6,7 @@ export default {
   namespaced: true,
   actions: {
     bindPending: firestoreAction(({ bindFirestoreRef }, assessorEmail) => {
-      let firestoreRef = firestore
+      const firestoreRef = firestore
         .collection('assessments')
         .where('assessor.email', '==', assessorEmail)
         .where('status', '==', 'pending')
@@ -15,7 +15,7 @@ export default {
       return bindFirestoreRef('pending', firestoreRef, { serialize: vuexfireSerialize });
     }),
     bindComplete: firestoreAction(({ bindFirestoreRef }, assessorEmail) => {
-      let firestoreRef = firestore
+      const firestoreRef = firestore
         .collection('assessments')
         .where('assessor.email', '==', assessorEmail)
         .where('status', '==', 'completed')

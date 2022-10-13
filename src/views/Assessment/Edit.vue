@@ -203,7 +203,7 @@ export default {
         this.isSaveDisabled = true;
         this.assessment.status = 'completed';
         this.assessment.assessor.id = this.$store.state.auth.currentUser.uid;
-        this.assessment.filePath = this.buildFileFolder + '/' + this.assessment.fileRef;
+        this.assessment.filePath = `${this.buildFileFolder  }/${  this.assessment.fileRef}`;
         await this.$store.dispatch('assessment/save', this.assessment);
         this.$router.push({ name: 'assessment-success' });
       } else {
