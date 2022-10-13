@@ -235,7 +235,6 @@ export default {
       if (this.isValid()) {
         this.isSaveDisabled = true;
         this.assessment.assessor.id = this.$store.state.auth.currentUser.uid;
-
         let routerName = '';
         if (this.isDeclined) {
           this.assessment.status = 'declined';
@@ -243,11 +242,10 @@ export default {
           routerName = 'assessments';
         } else {
           this.assessment.status = 'completed';
-          this.assessment.filePath = this.buildFileFolder + '/' + this.assessment.fileRef;
+          this.assessment.filePath = `${this.buildFileFolder  }/${  this.assessment.fileRef}`;
           await this.$store.dispatch('assessment/save', this.assessment);
           routerName = 'assessment-success';
         }
-
         await this.$store.dispatch('assessment/save', this.assessment);
         this.$router.push({ name: routerName });
       } else {

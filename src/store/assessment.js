@@ -19,7 +19,7 @@ export default {
     }),
     save: async ({ state }, data) => {
       // Update the CRUD timestamps
-      if(!data.submittedDate){
+      if (!data.submittedDate){
         data.submittedDate = firebase.firestore.FieldValue.serverTimestamp();
       }
       data.updatedDate = firebase.firestore.FieldValue.serverTimestamp();

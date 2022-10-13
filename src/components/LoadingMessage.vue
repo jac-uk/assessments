@@ -29,7 +29,7 @@ export default {
   },
   watch: { 
     loadFailed: function(newVal) { 
-      if(newVal == true){
+      if (newVal == true){
         // If we fail to load, log the user out
         auth().signOut();
       }
