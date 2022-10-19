@@ -104,6 +104,7 @@ const lookup = (value) => {
       'court': 'Court',
       'crime': 'Crime',
       'critical-analysis-qualifying-test': 'Critical analysis qualifying test (QT)',
+      'declined': 'Declined',
       'devolution-questions': 'Devolution questions',
       'draft': 'Draft',
       'drafting-documents-that-affect-rights-obligations': 'Drafting documents intended to affect persons\' rights or obligations',

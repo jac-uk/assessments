@@ -14,6 +14,15 @@ export default {
 
       return bindFirestoreRef('pending', firestoreRef, { serialize: vuexfireSerialize });
     }),
+    bindDecline: firestoreAction(({ bindFirestoreRef }, assessorEmail) => {
+      const firestoreRef = firestore
+        .collection('assessments')
+        .where('assessor.email', '==', assessorEmail)
+        .where('status', '==', 'declined')
+        .orderBy('dueDate', 'asc');
+
+      return bindFirestoreRef('decline', firestoreRef, { serialize: vuexfireSerialize });
+    }),
     bindComplete: firestoreAction(({ bindFirestoreRef }, assessorEmail) => {
       const firestoreRef = firestore
         .collection('assessments')
