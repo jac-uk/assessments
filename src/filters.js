@@ -6,6 +6,8 @@ const formatDate = (value, type) => {
       return `${objDate.toLocaleString('en-GB', { month: 'long' })} ${objDate.getUTCFullYear()}`;
     case 'datetime':
       return objDate.toLocaleString('en-GB');
+    case 'datetime-long': // e.g. 1 PM on 1 October 2022
+      return `${objDate.toLocaleString('en-US', { hour: 'numeric', hour12: true })} on ${objDate.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' })}`;
     default:
         return objDate.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
     }

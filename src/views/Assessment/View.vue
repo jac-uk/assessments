@@ -44,7 +44,7 @@
               Due date
             </dt>
             <dd class="govuk-summary-list__value">
-              1pm on {{ assessment.dueDate | formatDate }}
+              {{ assessment.dueDate | formatDate('datetime-long') }}
             </dd>
           </div>
           <div 
