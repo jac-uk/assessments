@@ -36,7 +36,7 @@
     "@babel/eslint-parser": "7.15.8",
     "@vue/babel-preset-app": "^5.0.6",
     "@vue/cli-plugin-eslint": "^5",
-    "@vue/cli-service": "^4.5.13",
+    "@vue/cli-service": "^5.0.8",
     "@vue/eslint-config-standard": "^5.1.2",
     "clone": "^2.1.2",
     "eslint": "^7.32.0",
