@@ -47,18 +47,7 @@
                 Due date
               </dt>
               <dd class="govuk-summary-list__value">
-                {{ assessment.dueDate | formatDate('datetime') }}
-              </dd>
-            </div>
-            <div
-              v-if="assessment.hardLimitDate && pastDueDate"
-              class="govuk-summary-list__row"
-            >
-              <dt class="govuk-summary-list__key">
-                <b> Cut off date </b>
-              </dt>
-              <dd class="govuk-summary-list__value">
-                {{ assessment.hardLimitDate | formatDate('datetime') }}
+                {{ assessment.dueDate | formatDate('date-hour') }}
               </dd>
             </div>
             <div

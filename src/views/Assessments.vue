@@ -70,7 +70,7 @@
                 {{ assessment.candidate.fullName }}
               </td>
               <td class="govuk-table__cell">
-                {{ assessment.dueDate | formatDate('datetime') }}
+                {{ assessment.dueDate | formatDate('date-hour') }}
               </td>
               <td 
                 class="govuk-table__cell"
