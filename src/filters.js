@@ -2,11 +2,13 @@ const formatDate = (value, type) => {
   if (value) {
     const objDate = new Date(Date.parse(value));
     switch (type) {
-    case 'month':
-      return `${objDate.toLocaleString('en-GB', { month: 'long' })} ${objDate.getUTCFullYear()}`;
-    case 'datetime':
-      return objDate.toLocaleString('en-GB');
-    default:
+      case 'month':
+        return `${objDate.toLocaleString('en-GB', { month: 'long' })} ${objDate.getUTCFullYear()}`;
+      case 'datetime':
+        return objDate.toLocaleString('en-GB');
+      case 'date-hour': // e.g. 1 pm on 1 October 2022
+        return `${objDate.toLocaleString('en-GB', { hour: 'numeric', hour12: true })} on ${objDate.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' })}`;
+      default:
         return objDate.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
     }
   }
@@ -104,6 +106,7 @@ const lookup = (value) => {
       'court': 'Court',
       'crime': 'Crime',
       'critical-analysis-qualifying-test': 'Critical analysis qualifying test (QT)',
+      'declined': 'Declined',
       'devolution-questions': 'Devolution questions',
       'draft': 'Draft',
       'drafting-documents-that-affect-rights-obligations': 'Drafting documents intended to affect persons\' rights or obligations',

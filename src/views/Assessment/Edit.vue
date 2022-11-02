@@ -47,18 +47,7 @@
                 Due date
               </dt>
               <dd class="govuk-summary-list__value">
-                {{ assessment.dueDate | formatDate }}
-              </dd>
-            </div>
-            <div
-              v-if="assessment.hardLimitDate && pastDueDate"
-              class="govuk-summary-list__row"
-            >
-              <dt class="govuk-summary-list__key">
-                <b> Cut off date </b>
-              </dt>
-              <dd class="govuk-summary-list__value">
-                {{ assessment.hardLimitDate | formatDate }}
+                {{ assessment.dueDate | formatDate('date-hour') }}
               </dd>
             </div>
             <div
@@ -69,7 +58,7 @@
                 Last uploaded
               </dt>
               <dd class="govuk-summary-list__value">
-                {{ assessment.updatedDate | formatDate }}
+                {{ assessment.updatedDate | formatDate('datetime') }}
               </dd>
             </div>
           </dl>
@@ -108,8 +97,33 @@
               :path="buildFileFolder"
               :file-path="assessment.filePath"
               label="Please upload your assessment here"
-              required
+              :required="!isDeclined"
             />
+
+            <RadioGroup
+              :id="`decline-assessment`"
+              v-model="isDeclined"
+              label="Would you like to decline this Independent Assessment?"
+              :messages="{
+                required: 'Please choose one of the following options'
+              }"
+            >
+              <RadioItem
+                :value="true"
+                label="Yes"
+              >
+                <TextField
+                  id="decline-reason"
+                  v-model="declineReason"
+                  label="Decline Reason"
+                  class="govuk-!-width-two-thirds"
+                />
+              </RadioItem>
+              <RadioItem
+                :value="false"
+                label="No"
+              />
+            </RadioGroup>
 
             <button
               class="govuk-button"
@@ -138,6 +152,9 @@ import ErrorSummary from '@/components/Form/ErrorSummary';
 import DownloadLink from '@/components/DownloadLink';
 import FileUpload from '@jac-uk/jac-kit/draftComponents/Form/FileUpload';
 import Warning from '@/components/Warning';
+import RadioGroup from '@jac-uk/jac-kit/draftComponents/Form/RadioGroup';
+import RadioItem from '@jac-uk/jac-kit/draftComponents/Form/RadioItem';
+import TextField from '@jac-uk/jac-kit/draftComponents/Form/TextField';
 
 export default {
   components: {
@@ -145,6 +162,9 @@ export default {
     DownloadLink,
     FileUpload,
     Warning,
+    RadioGroup,
+    RadioItem,
+    TextField,
   },
   extends: Form,
   data() {
@@ -156,6 +176,8 @@ export default {
     return {
       assessment: assessment,
       isSaveDisabled: false,
+      isDeclined: false,
+      declineReason: '',
     };
   },
   computed: {
@@ -201,11 +223,20 @@ export default {
       this.validate();
       if (this.isValid()) {
         this.isSaveDisabled = true;
-        this.assessment.status = 'completed';
         this.assessment.assessor.id = this.$store.state.auth.currentUser.uid;
-        this.assessment.filePath = this.buildFileFolder + '/' + this.assessment.fileRef;
+        let routerName = '';
+        if (this.isDeclined) {
+          this.assessment.status = 'declined';
+          this.assessment.declineReason = this.declineReason;
+          routerName = 'assessments';
+        } else {
+          this.assessment.status = 'completed';
+          this.assessment.filePath = `${this.buildFileFolder  }/${  this.assessment.fileRef}`;
+          await this.$store.dispatch('assessment/save', this.assessment);
+          routerName = 'assessment-success';
+        }
         await this.$store.dispatch('assessment/save', this.assessment);
-        this.$router.push({ name: 'assessment-success' });
+        this.$router.push({ name: routerName });
       } else {
         this.isSaveDisabled = false;
       }

@@ -31,7 +31,8 @@
           </div>
         </div>
         <p class="govuk-body">
-          Problems signing in? Please contact enquiries@judicialappointments.gov.uk using the same email address we have contacted you with.
+          Problems signing in?<br>
+          Please contact <a href="mailto:enquiries@judicialappointments.gov.uk">enquiries@judicialappointments.gov.uk</a> using the same email address we have contacted you with.
         </p>
       </div>
     </div>
@@ -62,7 +63,7 @@ export default {
       const response = await functions.httpsCallable('generateSignInWithEmailLink')({ ref: ref, email: email, returnUrl: returnUrl });
       if (response && response.data && response.data.result) {
         window.localStorage.setItem('emailForSignIn', email);
-        window.localStorage.setItem('signInDestination', ref + '/upload');
+        window.localStorage.setItem('signInDestination', `${ref  }/upload`);
         return window.location.replace(response.data.result);
       } else {
         // console.log('mal-formed request');
