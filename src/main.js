@@ -4,17 +4,20 @@ import * as filters from '@/filters';
 import router from '@/router';
 import store from '@/store';
 import { auth } from '@/firebase';
-import * as Sentry from '@sentry/browser';
-import * as Integrations from '@sentry/integrations';
+import * as Sentry from '@sentry/vue';
+import { BrowserTracing } from '@sentry/tracing';
 
-const host = window.location.host;
-const parts = host.split('.');
-if (process.env.NODE_ENV !== 'development' && !host.includes('-develop')) {
+if (process.env.NODE_ENV !== 'development') {
   Sentry.init({
+    Vue,
     dsn: 'https://23ac92825117451eb421535be7e4c334@o323827.ingest.sentry.io/5301649',
-    environment: parts[0] == 'assessments' ? 'production' : 'staging',
-    release: process.env.npm_package_version,
-    integrations: [new Integrations.Vue({ Vue, attachProps: true })],
+    environment: store.getters.appEnvironment.toLowerCase(),
+    release: process.env.PACKAGE_VERSION,
+    integrations: [
+      new BrowserTracing({
+        routingInstrumentation: Sentry.vueRouterInstrumentation(router),
+      }),
+    ],
   });
 }
 Vue.config.productionTip = false;

@@ -17,12 +17,31 @@ const store = new Vuex.Store({
     assessment,
     assessments,
   },
-  state: {},
+  state: {
+    packageVersion: process.env.PACKAGE_VERSION || '0',
+  },
   mutations: {
     ...vuexfireMutations,
   },
   actions: {},
-  getters: {},
+  getters: {
+    appVersion: (state) => {
+      return state.packageVersion;
+    },
+    appEnvironment: () => {
+      const projectId = process.env.VUE_APP_FIREBASE_PROJECT_ID;
+      if (projectId.indexOf('-develop') >= 0) {
+        return 'DEVELOP';
+      }
+      if (projectId.indexOf('-staging') >= 0) {
+        return 'STAGING';
+      }
+      if (projectId.indexOf('-production') >= 0) {
+        return 'PRODUCTION';
+      }
+      return '';
+    },
+  },
 });
 
 export default store;
