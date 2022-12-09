@@ -232,7 +232,6 @@ export default {
         } else {
           this.assessment.status = 'completed';
           this.assessment.filePath = `${this.buildFileFolder  }/${  this.assessment.fileRef}`;
-          await this.$store.dispatch('assessment/save', this.assessment);
           routerName = 'assessment-success';
         }
         await this.$store.dispatch('assessment/save', this.assessment);

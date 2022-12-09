@@ -25,13 +25,13 @@ if (process.env.VUE_APP_USE_FUNCTIONS_EMULATOR === 'true') {
 const firestore = firebase.firestore();
 
 // App check
-const appCheck = firebase.appCheck();
+let appCheck;
 if (process.env.VUE_APP_RECAPTCHA_TOKEN) {
-  appCheck.activate(process.env.VUE_APP_RECAPTCHA_TOKEN);
+  appCheck = firebase.appCheck().activate(process.env.VUE_APP_RECAPTCHA_TOKEN);
 }
 
 // Other firebase exports
 const auth = firebase.auth;
 
-export { firestore, auth, functions };
+export { firestore, auth, functions, appCheck };
 export default firebase;
