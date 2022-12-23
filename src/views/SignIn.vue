@@ -56,6 +56,10 @@ export default {
   },
   async created() {
     if (this.$route.query.email && this.$route.query.ref) {
+      if (this.$route.query.email.includes('@judicialappointments.gov.uk')) {
+        this.loginFail = true;
+        return;
+      }
       // we have email and ref querystring parameters so try to sign in automatically
       const email = this.$route.query.email.replace(/ /g, '+');  // Quick fix for #28 `+` being stripped from emails in IA links
       const ref = this.$route.query.ref;
