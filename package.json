@@ -49,10 +49,10 @@
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-vue": "^9.17.0",
     "postcss": "8.2.15",
-    "terser": "^5.23.0",
     "sass": "^1.32.13",
-    "vue-template-compiler": "^2.6.12",
+    "terser": "^5.23.0",
     "vite-plugin-eslint": "^1.8.1",
+    "vue-template-compiler": "^2.6.12",
     "webpack": "^5.88.1"
   },
   "peerDependencies": {
