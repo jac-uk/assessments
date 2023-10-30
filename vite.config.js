@@ -5,7 +5,7 @@ const path = require('path');
 
 export default defineConfig({
   define: {
-    'import.meta.env.PACKAGE_VERSION': JSON.stringify(process.env.npm_package_version),
+    'import.meta.env.PACKAGE_VERSION': JSON.stringify(import.meta.env.npm_package_version),
   },
   resolve: {
     alias: {
