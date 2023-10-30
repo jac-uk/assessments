@@ -35,7 +35,7 @@ auth().onAuthStateChanged( (user) => {
         app: vueInstance,
         dsn: 'https://23ac92825117451eb421535be7e4c334@o323827.ingest.sentry.io/5301649',
         environment: store.getters.appEnvironment.toLowerCase(),
-        release: process.env.PACKAGE_VERSION,
+        release: import.meta.env.PACKAGE_VERSION,
         integrations: [
           new Sentry.BrowserTracing({
             routingInstrumentation: Sentry.vueRouterInstrumentation(router),
