@@ -33,7 +33,8 @@
     "no-prototype-builtins": "off",
     "vue/no-mutating-props": "off",
     "vue/no-lone-template": "off",
-    "no-empty": "warn"
+    "no-empty": "warn",
+    "vue/multi-word-component-names": "off"
   },
   "parserOptions": {
     "ecmaVersion": 2020
