@@ -7,7 +7,7 @@
       <ul
         class="govuk-tabs__list"
       >
-        <li 
+        <li
           v-for="tab in tabs"
           :key="tab.title"
           :class="{'govuk-tabs__list-item--selected': isActive(tab) }"
