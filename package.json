@@ -50,6 +50,7 @@
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^7.20.0",
     "postcss": "8.2.15",
+    "terser": "^5.23.0",
     "sass": "^1.32.13",
     "vue-template-compiler": "^2.6.12",
     "webpack": "^4.44.1"
