@@ -75,7 +75,7 @@
               <td
                 class="govuk-table__cell"
               >
-                {{ $filters.lookup(assessment.status)}}
+                {{ $filters.lookup(assessment.status) }}
               </td>
               <td class="govuk-table__cell">
                 <span v-if="activeTab === 'decline'">

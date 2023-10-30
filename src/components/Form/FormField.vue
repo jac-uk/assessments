@@ -62,7 +62,7 @@ export default {
   mounted: function () {
     this.emitter.on('validate', this.handleValidate);
   },
-  beforeDestroy: function() {
+  beforeUnmount: function() {
     this.setError('');
     this.emitter.off('validate', this.handleValidate);
   },

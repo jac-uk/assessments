@@ -18,7 +18,7 @@ export default {
       this.$el.querySelector('form').setAttribute('novalidate', true);
     }
   },
-  beforeDestroy: function() {
+  beforeUnmount: function() {
     this.emitter.off('handle-error', this.handleError);
   },
   methods: {
