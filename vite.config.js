@@ -10,30 +10,10 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
-      // stream: 'stream-browserify',
-      // process: 'process/browser',
-      // buffer: 'buffer',
     },
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],  // Remove this eventually
   },
   plugins: [vue()],
-  // css: {
-  //   preprocessorOptions: {
-  //     scss: {
-  //       additionalData: `
-  //         @import "@/styles/_shared.scss";
-  //       `,
-  //     },
-  //   },
-  // },
-  // build: {
-  //   rollupOptions: {
-  //     plugins: [inject({ Buffer: ['buffer', 'Buffer'], process: 'process' })],
-  //     output: {
-  //       format: 'esm',
-  //     },
-  //   },
-  // },
   server: {
     port: 8082,
   },
