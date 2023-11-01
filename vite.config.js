@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
-import inject from '@rollup/plugin-inject';
+//import inject from '@rollup/plugin-inject';
 const path = require('path');
 
 export default defineConfig({
@@ -10,9 +10,9 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
-      stream: 'stream-browserify',
-      process: 'process/browser',
-      buffer: 'buffer',
+      // stream: 'stream-browserify',
+      // process: 'process/browser',
+      // buffer: 'buffer',
     },
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],  // Remove this eventually
   },
@@ -26,14 +26,14 @@ export default defineConfig({
   //     },
   //   },
   // },
-  build: {
-    rollupOptions: {
-      plugins: [inject({ Buffer: ['buffer', 'Buffer'], process: 'process' })],
-      output: {
-        format: 'esm',
-      },
-    },
-  },
+  // build: {
+  //   rollupOptions: {
+  //     plugins: [inject({ Buffer: ['buffer', 'Buffer'], process: 'process' })],
+  //     output: {
+  //       format: 'esm',
+  //     },
+  //   },
+  // },
   server: {
     port: 8082,
   },

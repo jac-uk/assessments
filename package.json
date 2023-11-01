@@ -27,7 +27,6 @@
   },
   "dependencies": {
     "@jac-uk/jac-kit": "3.0.43",
-    "@rollup/plugin-inject": "^5.0.5",
     "@sentry/vue": "^7.13.0",
     "@vitejs/plugin-vue": "^4.4.0",
     "firebase": "^8.10.1",
@@ -50,7 +49,6 @@
     "sass": "^1.32.13",
     "terser": "^5.23.0",
     "vite-plugin-eslint": "^1.8.1",
-    "vue-template-compiler": "^2.6.12",
     "webpack": "^5.88.1"
   },
   "peerDependencies": {

@@ -40,7 +40,6 @@ export default {
   getters: {
     id: (state) => {
       if (state.record === null) return null;
-      console.log(state);
       return state.record.id;
     },
     data: (state) => () => {
