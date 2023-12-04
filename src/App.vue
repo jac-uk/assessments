@@ -3,32 +3,30 @@
     <div class="govuk-main-wrapper">
       <header class="header">
         <div class="govuk-grid-row">
-          <div class="govuk-grid-column-one-half">
-            <!-- HEADER SECTION -->
-            <div class="govuk-grid-row">
-              <div class="govuk-grid-column-two-thirds">
-                <div class="gem-c-organisation-logo brand--ministry-of-justice">
-                  <img
-                    src="@/assets/jac-logo.svg"
-                    alt="Judicial Appointments Commission"
-                    width="197"
-                    height="66"
-                    style="text-align: center"
-                  >
-                </div>
-              </div>
-              <div class="govuk-grid-column-one-third text-right">
-                <button
-                  v-if="isSignedIn && $route.name !== 'sign-in'"
-                  class="govuk-button"
-                  @click="signOut"
+          <!-- HEADER SECTION -->
+          <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+              <div class="gem-c-organisation-logo brand--ministry-of-justice">
+                <img
+                  src="@/assets/jac-logo.svg"
+                  alt="Judicial Appointments Commission"
+                  width="197"
+                  height="66"
+                  style="text-align: center"
                 >
-                  Sign Out
-                </button>
-              </div>              
+              </div>
             </div>
-            <!-- HEADER SECTION -->
+            <div class="govuk-grid-column-one-third text-right">
+              <button
+                v-if="isSignedIn && $route.name !== 'sign-in'"
+                class="govuk-button"
+                @click="signOut"
+              >
+                Sign Out
+              </button>
+            </div>
           </div>
+          <!-- HEADER SECTION -->
         </div>
       </header>
       <div class="govuk-grid-row">
