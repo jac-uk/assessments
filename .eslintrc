@@ -2,12 +2,12 @@
   "root": true,
   "env": {
     "node": true,
-    "es6": true,
+    "es2022": true,
     "jest": true
   },
   "extends": [
     "eslint:recommended",
-    "plugin:vue/recommended"
+    "plugin:vue/vue3-recommended"
   ],
   "rules": {
     "func-style": ["error", "expression"],
@@ -33,10 +33,10 @@
     "no-prototype-builtins": "off",
     "vue/no-mutating-props": "off",
     "vue/no-lone-template": "off",
-    "no-empty": "warn"
+    "no-empty": "warn",
+    "vue/multi-word-component-names": "off"
   },
   "parserOptions": {
-    "parser": "@babel/eslint-parser",
     "ecmaVersion": 2020
   },
   "overrides": [

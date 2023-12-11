@@ -1,5 +1,8 @@
-import Vue from 'vue';
-import Router from 'vue-router';
+import {
+  createWebHistory,
+  createRouter
+} from 'vue-router';
+
 import store from '@/store';
 
 import SignIn from '@/views/SignIn';
@@ -16,14 +19,13 @@ import AssessmentNotFound from '@/views/Errors/AssessmentNotFound';
 import AssessmentsNotFound from '@/views/Errors/AssessmentsNotFound';
 import PageNotFound from '@/views/Errors/PageNotFound';
 
-Vue.use(Router);
+// const routes = ;
 
-const router = new Router({
-  mode: 'history',
-  base: process.env.BASE_URL,
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '*',
+      path: '/:pathMatch(.*)*',
       redirect: '/sign-in',
     },
     {

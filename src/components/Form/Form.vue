@@ -11,19 +11,19 @@ export default {
     };
   },
   mounted: function () {
-    this.$root.$on('handle-error', this.handleError);
+    this.emitter.on('handle-error', this.handleError);
 
     // Disable HTML5 validation
     if (this.$el.querySelector('form')) {
       this.$el.querySelector('form').setAttribute('novalidate', true);
     }
   },
-  beforeDestroy: function() {
-    this.$root.$off('handle-error', this.handleError);
+  beforeUnmount: function() {
+    this.emitter.off('handle-error', this.handleError);
   },
   methods: {
     async validate() {
-      this.$root.$emit('validate');
+      this.emitter.emit('validate');
     },
     handleError(payload) {
       this.errorObject[payload.id] = payload.message;

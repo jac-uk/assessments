@@ -2,7 +2,8 @@
 $govuk-font-family: "Khula", "HelveticaNeue", "Helvetica Neue", "Arial", "Helvetica", sans-serif;
 
 $govuk-assets-path: "~govuk-frontend/govuk/assets/";
-@import "~govuk-frontend/govuk/all";
+
+@import "node_modules/govuk-frontend/govuk/all.scss";
 
 .text-center {
   text-align: center;

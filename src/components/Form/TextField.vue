@@ -31,8 +31,8 @@
 </template>
 
 <script>
-import FormField from '@/components/Form/FormField';
-import FormFieldError from '@/components/Form/FormFieldError';
+import FormField from '@/components/Form/FormField.vue';
+import FormFieldError from '@/components/Form/FormFieldError.vue';
 
 export default {
   components: {
@@ -59,7 +59,7 @@ export default {
         return this.value;
       },
       set(val) {
-        this.$emit('input', val);
+        this.emitter.emit('input', val);
       },
     },
     fieldType() {

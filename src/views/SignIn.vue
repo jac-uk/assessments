@@ -39,7 +39,7 @@
   </div>
 </template>
 <script>
-import LoadingMessage from '@/components/LoadingMessage';
+import LoadingMessage from '@/components/LoadingMessage.vue';
 import { auth, functions } from '@/firebase';
 
 export default {

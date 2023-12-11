@@ -44,10 +44,10 @@
               Due date
             </dt>
             <dd class="govuk-summary-list__value">
-              {{ assessment.dueDate | formatDate('date-hour') }}
+              {{ $filters.formatDate(assessment.dueDate, 'date-hour') }}
             </dd>
           </div>
-          <div 
+          <div
             v-if="assessment.updatedDate"
             class="govuk-summary-list__row"
           >
@@ -55,7 +55,7 @@
               Last uploaded
             </dt>
             <dd class="govuk-summary-list__value">
-              {{ assessment.updatedDate | formatDate('datetime') }}
+              {{ $filters.formatDate(assessment.updatedDate, 'datetime') }}
             </dd>
           </div>
         </dl>
@@ -87,7 +87,7 @@
 <script>
 import { mapState } from 'vuex';
 
-import DownloadLink from '@/components/DownloadLink';
+import DownloadLink from '@/components/DownloadLink.vue';
 
 export default {
   components: {
