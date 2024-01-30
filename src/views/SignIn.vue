@@ -40,6 +40,8 @@
 </template>
 <script>
 import LoadingMessage from '@/components/LoadingMessage.vue';
+import { httpsCallable } from '@firebase/functions';
+import { isSignInWithEmailLink, signInWithEmailLink } from '@firebase/auth';
 import { auth, functions } from '@/firebase';
 
 export default {
@@ -60,7 +62,7 @@ export default {
       const email = this.$route.query.email.replace(/ /g, '+');  // Quick fix for #28 `+` being stripped from emails in IA links
       const ref = this.$route.query.ref;
       const returnUrl = `${window.location.protocol}//${window.location.host}/sign-in`;
-      const response = await functions.httpsCallable('generateSignInWithEmailLink')({ ref: ref, email: email, returnUrl: returnUrl });
+      const response = await httpsCallable(functions, 'generateSignInWithEmailLink')({ ref: ref, email: email, returnUrl: returnUrl });
       if (response && response.data && response.data.result) {
         window.localStorage.setItem('emailForSignIn', email);
         window.localStorage.setItem('signInDestination', `${ref  }/upload`);
@@ -72,11 +74,11 @@ export default {
       }
     } else if (this.$route.query.return) {
       // we have 'return' flag set so try to complete sign in
-      if (auth().isSignInWithEmailLink(window.location.href)) {
+      if (isSignInWithEmailLink(auth, window.location.href)) {
         const email = window.localStorage.getItem('emailForSignIn');
         const ref = window.localStorage.getItem('signInDestination');
         if (email && ref) {
-          const result = await auth().signInWithEmailLink(email, window.location.href);
+          const result = await signInWithEmailLink(auth, email, window.location.href);
           window.localStorage.removeItem('emailForSignIn');
           window.localStorage.removeItem('signInDestination');
           await this.$store.dispatch('auth/setCurrentUser', result.user);
@@ -90,7 +92,7 @@ export default {
   },
   methods: {
     async signOut() {
-      await auth().signOut();
+      await auth.signOut();
     },
   },
 };

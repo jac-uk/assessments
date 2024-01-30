@@ -62,7 +62,7 @@ export default {
   },
   methods: {
     async signOut() {
-      await auth().signOut();
+      await auth.signOut();
       this.$router.go('/sign-in');
     },
   },
