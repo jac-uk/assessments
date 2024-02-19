@@ -1,8 +1,9 @@
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/firestore';
-import 'firebase/functions';
-import 'firebase/app-check';
+import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
+import { connectFunctionsEmulator, getFunctions } from 'firebase/functions';
+import { getAuth } from 'firebase/auth';
+import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check';
+import { getStorage } from 'firebase/storage';
 
 // Configure and initialise Firebase
 // Config variables are pulled from the environment at build time
@@ -15,23 +16,35 @@ const config = {
   messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
-const functions = firebase.initializeApp(config).functions('europe-west2');
+
+/**
+ * Module API
+ * @see https://firebase.google.com/docs/reference/js
+ */
+const app = initializeApp(config);
+const functions = getFunctions(app, 'europe-west2');
 
 if (import.meta.env.VITE_USE_FUNCTIONS_EMULATOR === 'true') {
-  functions.useEmulator('http://localhost', '5001');
+  connectFunctionsEmulator(functions ,'http://localhost', 5001);
 }
 
 // Initialise Firestore
-const firestore = firebase.firestore();
+const firestore = getFirestore(app);
 
 // App check
 let appCheck;
 if (import.meta.env.VITE_RECAPTCHA_TOKEN) {
-  appCheck = firebase.appCheck().activate(import.meta.env.VITE_RECAPTCHA_TOKEN);
+  /**
+  * @see https://firebase.google.com/docs/app-check/web/recaptcha-provider#initialize
+  */
+  appCheck = initializeAppCheck(app, {
+    provider: new ReCaptchaV3Provider(import.meta.env.VITE_RECAPTCHA_TOKEN),
+  });
 }
 
 // Other firebase exports
-const auth = firebase.auth;
+const auth = getAuth(app);
+const storage = getStorage(app);
 
-export { firestore, auth, functions, appCheck };
-export default firebase;
+export { firestore, auth, functions, appCheck, storage };
+export default app;

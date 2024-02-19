@@ -1,4 +1,5 @@
 import { auth } from '@/firebase';
+import { fetchSignInMethodsForEmail, EmailAuthProvider } from '@firebase/auth';
 
 const module = {
   namespaced: true,
@@ -22,8 +23,8 @@ const module = {
         if (state.authError) { commit('setAuthError', null); }
         let allOk = false;
         if (user.emailVerified) {
-          const signInMethods = await auth().fetchSignInMethodsForEmail(user.email);
-          if (signInMethods && signInMethods.length > 0 && signInMethods.indexOf(auth.EmailAuthProvider.EMAIL_LINK_SIGN_IN_METHOD) >= 0) {
+          const signInMethods = await fetchSignInMethodsForEmail(auth, user.email);
+          if (signInMethods && signInMethods.length > 0 && signInMethods.indexOf(EmailAuthProvider.EMAIL_LINK_SIGN_IN_METHOD) >= 0) {
             allOk = true;
           }
         }
@@ -35,7 +36,7 @@ const module = {
             displayName: user.displayName,
           });
         } else {
-          auth().signOut();
+          auth.signOut();
           commit('setAuthError', 'This site is restricted'); // @TODO Use agreed error message
         }
       }
