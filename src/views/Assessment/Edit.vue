@@ -97,6 +97,8 @@
               :path="buildFileFolder"
               :file-path="assessment.filePath"
               label="Please upload your assessment here"
+              types=".docx,.doc"
+              hint="You can upload a .doc or .docx file"
               :required="!isDeclined"
             />
 
