@@ -32,7 +32,7 @@
     "firebase": "^10.7.2",
     "govuk-frontend": "^3.12.0",
     "mitt": "^3.0.1",
-    "vite": "^4.5.0",
+    "vite": "^4.5.3",
     "vue": "^3.2.36",
     "vue-dompurify-html": "^4.1.4",
     "vue-router": "^4.0.13",
