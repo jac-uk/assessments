@@ -45,14 +45,14 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-vue": "^9.17.0",
-    "postcss": "8.2.15",
+    "postcss": "8.4.31",
     "sass": "^1.32.13",
     "terser": "^5.23.0",
     "vite-plugin-eslint": "^1.8.1",
     "webpack": "^5.88.1"
   },
   "peerDependencies": {
-    "postcss": "8.2.15"
+    "postcss": "8.4.31"
   },
   "engines": {
     "node": "v16.15.1",
