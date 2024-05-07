@@ -13,12 +13,12 @@
           Independent Assessments
         </h1>
         <TabsList
+          v-model:active-tab="activeTab"
           :tabs="tabs"
-          :active-tab.sync="activeTab"
         />
         <table
-          v-if="(activeTab == 'pending' && assessmentsPending.length) || 
-            (activeTab == 'decline' && assessmentsDecline.length) || 
+          v-if="(activeTab == 'pending' && assessmentsPending.length) ||
+            (activeTab == 'decline' && assessmentsDecline.length) ||
             (activeTab == 'complete' && assessmentsComplete.length)
           "
           class="govuk-table table-with-border"
@@ -70,12 +70,12 @@
                 {{ assessment.candidate.fullName }}
               </td>
               <td class="govuk-table__cell">
-                {{ assessment.dueDate | formatDate('date-hour') }}
+                {{ $filters.formatDate(assessment.dueDate, 'date-hour') }}
               </td>
-              <td 
+              <td
                 class="govuk-table__cell"
               >
-                {{ assessment.status | lookup }}
+                {{ $filters.lookup(assessment.status) }}
               </td>
               <td class="govuk-table__cell">
                 <span v-if="activeTab === 'decline'">
@@ -123,8 +123,8 @@
 <script>
 import { mapState } from 'vuex';
 import { isDateInFuture } from '@/helpers/date';
-import TabsList from '@/components/Page/TabsList';
-import LoadingMessage from '@/components/LoadingMessage';
+import TabsList from '@/components/Page/TabsList.vue';
+import LoadingMessage from '@/components/LoadingMessage.vue';
 export default {
   components: {
     LoadingMessage,

@@ -47,7 +47,7 @@
                 Due date
               </dt>
               <dd class="govuk-summary-list__value">
-                {{ assessment.dueDate | formatDate('date-hour') }}
+                {{ $filters.formatDate(assessment.dueDate, 'date-hour') }}
               </dd>
             </div>
             <div
@@ -58,7 +58,7 @@
                 Last uploaded
               </dt>
               <dd class="govuk-summary-list__value">
-                {{ assessment.updatedDate | formatDate('datetime') }}
+                {{ $filters.formatDate(assessment.updatedDate, 'datetime') }}
               </dd>
             </div>
           </dl>
@@ -97,6 +97,8 @@
               :path="buildFileFolder"
               :file-path="assessment.filePath"
               label="Please upload your assessment here"
+              types=".docx,.doc"
+              hint="You can upload a .doc or .docx file"
               :required="!isDeclined"
             />
 
@@ -147,14 +149,14 @@
 </template>
 <script>
 import { isDateInFuture } from '@/helpers/date';
-import Form from '@/components/Form/Form';
-import ErrorSummary from '@/components/Form/ErrorSummary';
-import DownloadLink from '@/components/DownloadLink';
-import FileUpload from '@jac-uk/jac-kit/draftComponents/Form/FileUpload';
-import Warning from '@/components/Warning';
-import RadioGroup from '@jac-uk/jac-kit/draftComponents/Form/RadioGroup';
-import RadioItem from '@jac-uk/jac-kit/draftComponents/Form/RadioItem';
-import TextField from '@jac-uk/jac-kit/draftComponents/Form/TextField';
+import Form from '@/components/Form/Form.vue';
+import ErrorSummary from '@/components/Form/ErrorSummary.vue';
+import DownloadLink from '@/components/DownloadLink.vue';
+import FileUpload from '@jac-uk/jac-kit/draftComponents/Form/FileUpload.vue';
+import Warning from '@/components/Warning.vue';
+import RadioGroup from '@jac-uk/jac-kit/draftComponents/Form/RadioGroup.vue';
+import RadioItem from '@jac-uk/jac-kit/draftComponents/Form/RadioItem.vue';
+import TextField from '@jac-uk/jac-kit/draftComponents/Form/TextField.vue';
 
 export default {
   components: {
@@ -232,7 +234,6 @@ export default {
         } else {
           this.assessment.status = 'completed';
           this.assessment.filePath = `${this.buildFileFolder  }/${  this.assessment.fileRef}`;
-          await this.$store.dispatch('assessment/save', this.assessment);
           routerName = 'assessment-success';
         }
         await this.$store.dispatch('assessment/save', this.assessment);
