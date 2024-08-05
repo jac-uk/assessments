@@ -42,21 +42,14 @@
     "clone": "^2.1.2",
     "eslint": "^8.43.0",
     "eslint-plugin-import": "^2.28.0",
-    "@babel/eslint-parser": "7.15.8",
-    "@vue/babel-preset-app": "^5.0.6",
-    "@vue/cli-plugin-eslint": "^5",
-    "@vue/cli-service": "^5.0.8",
-    "@vue/eslint-config-standard": "^8.0.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-vue": "^9.17.0",
     "postcss": "8.4.31",
     "sass": "^1.32.13",
-    "terser": "^5.23.0",
-    "vite-plugin-eslint": "^1.8.1",
-    "webpack": "^5.88.1",
     "sass-loader": "^10.2.0",
-    "vue-template-compiler": "^2.6.12"
+    "terser": "^5.23.0",
+    "vite-plugin-eslint": "^1.8.1"
   },
   "peerDependencies": {
     "postcss": "8.4.31"
