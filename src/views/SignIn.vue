@@ -79,7 +79,7 @@ export default {
         const ref = window.localStorage.getItem('signInDestination');
         if (email && ref) {
           const result = await signInWithEmailLink(auth, email, window.location.href);
-          // email from signInWithEmailLink will be converted to lowercase which might cause query issues
+          // email in user object from signInWithEmailLink will be converted to lowercase which might cause query issue
           if (result.user.email !== email) {
             result.user.email = email;
           }
