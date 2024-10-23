@@ -65,7 +65,7 @@ export default {
       const response = await httpsCallable(functions, 'generateSignInWithEmailLink')({ ref: ref, email: email, returnUrl: returnUrl });
       if (response && response.data && response.data.result) {
         window.localStorage.setItem('emailForSignIn', email);
-        window.localStorage.setItem('signInDestination', `${ref  }/upload`);
+        window.localStorage.setItem('signInDestination', `${ref}/upload`);
         return window.location.replace(response.data.result);
       } else {
         // console.log('mal-formed request');
@@ -80,7 +80,7 @@ export default {
         if (email && ref) {
           const result = await signInWithEmailLink(auth, email, window.location.href);
           // email in user object from signInWithEmailLink will be converted to lowercase which might cause query issue
-          if (result.user.email !== email) {
+          if (result && result.user && result.user.email !== email) {
             result.user.email = email;
           }
           window.localStorage.removeItem('emailForSignIn');
