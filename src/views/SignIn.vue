@@ -79,8 +79,10 @@ export default {
         }
       } else if (this.$route.query.return) {
 
+        const res = await isSignInWithEmailLink(auth, window.location.href);
+
         // we have 'return' flag set so try to complete sign in
-        if (isSignInWithEmailLink(auth, window.location.href)) {
+        if (res) {
           const email = window.localStorage.getItem('emailForSignIn');
           const ref = window.localStorage.getItem('signInDestination');
 
