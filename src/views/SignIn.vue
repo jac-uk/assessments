@@ -59,61 +59,33 @@ export default {
   async created() {
 
     try {
-
-      console.log('this.$route.query:');
-      console.log(this.$route.query);
-
       if (this.$route.query.email && this.$route.query.ref) {
-
-        console.log('A');
 
         // we have email and ref querystring parameters so try to sign in automatically
         const email = this.$route.query.email.replace(/ /g, '+');  // Quick fix for #28 `+` being stripped from emails in IA links
         const ref = this.$route.query.ref;
 
-        console.log(`email: ${email}`);
-        console.log(`ref: ${ref}`);
-
         const returnUrl = `${window.location.protocol}//${window.location.host}/sign-in`;
         const response = await httpsCallable(functions, 'generateSignInWithEmailLink')({ ref: ref, email: email, returnUrl: returnUrl });
 
-        console.log('RESPONSE:');
-        console.log(response);
-
         if (response && response.data && response.data.result) {
-
-          console.log('response.data.result:');
-          console.log(response.data.result);
 
           window.localStorage.setItem('emailForSignIn', email);
           window.localStorage.setItem('signInDestination', `${ref}/upload`);
           return window.location.replace(response.data.result);
         } else {
-          console.log('mal-formed request');
-          return;
-
-          // this.loginFail = true;
-          // this.signOut();
+          this.loginFail = true;
+          this.signOut();
         }
       } else if (this.$route.query.return) {
-
-        console.log('B-1');
-
-        console.log(`window.location.href: ${window.location.href}`);
 
         // we have 'return' flag set so try to complete sign in
         if (isSignInWithEmailLink(auth, window.location.href)) {
           const email = window.localStorage.getItem('emailForSignIn');
           const ref = window.localStorage.getItem('signInDestination');
 
-          console.log(`email: ${email}`);
-          console.log(`ref: ${ref}`);
-
           if (email && ref) {
             const result = await signInWithEmailLink(auth, email, window.location.href);
-
-            console.log('signInWithEmailLink result:');
-            console.log(result);
 
             // email in user object from signInWithEmailLink will be converted to lowercase which might cause query issue
             if (result && result.user && result.user.email !== email) {
@@ -121,16 +93,9 @@ export default {
             }
             window.localStorage.removeItem('emailForSignIn');
             window.localStorage.removeItem('signInDestination');
-
             await this.$store.dispatch('auth/setCurrentUser', result.user);
-
-            return;
-
-            //this.$router.replace(ref);
+            this.$router.replace(ref);
           } else {
-
-            console.log('isSignInWithEmailLink returns false');
-
             this.loginFail = true;
           }
         }

@@ -112,26 +112,10 @@ const router = createRouter({
 // Global before guard to verify if a user can access the requested page.
 // It redirects unauthorized users to a sign-in page.
 router.beforeEach(async (to, from, next) => {
-
-  console.log('---------- ROUTER ----------');
-
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth);
   const isSignedIn = store.getters['auth/isSignedIn'];
-
-  console.log(`requiresAuth: ${requiresAuth}`);
-  console.log(`isSignedIn: ${isSignedIn}`);
-
-  console.log('to:');
-  console.log(to);
-
-  console.log('from:');
-  console.log(from);
-
   if (requiresAuth && !isSignedIn) {
-
-    console.log('REDIRECTING TO SIGN IN AS LOT LOGGED IN');
-
-    //return next({ name: 'sign-in' });
+    return next({ name: 'sign-in' });
   }
   return next();
 });

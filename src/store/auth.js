@@ -17,10 +17,6 @@ const module = {
   },
   actions: {
     async setCurrentUser({ state, commit }, user) {
-
-      console.log('SET CURRENT USER:');
-      console.log(user);
-
       if (user === null) {
         commit('setCurrentUser', null);
       } else {
