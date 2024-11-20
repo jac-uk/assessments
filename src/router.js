@@ -115,6 +115,9 @@ router.beforeEach(async (to, from, next) => {
 
   console.log('======== ROUTER =========');
 
+  console.log('ROUTER to:');
+  console.log(to);
+
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth);
   const isSignedIn = store.getters['auth/isSignedIn'];
 

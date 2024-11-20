@@ -83,7 +83,7 @@ export default {
           window.localStorage.setItem('emailForSignIn', email);
           window.localStorage.setItem('signInDestination', `${ref}/upload`);
 
-          console.log('SI navigate to ${response.data.result}');
+          console.log(`SI navigate to ${response.data.result}`);
 
           return window.location.replace(response.data.result);
         } else {
