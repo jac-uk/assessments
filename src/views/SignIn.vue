@@ -101,7 +101,6 @@ export default {
 
         console.log(` SI res: ${res}`);
 
-
         // we have 'return' flag set so try to complete sign in
         if (res) {
           const email = window.localStorage.getItem('emailForSignIn');
