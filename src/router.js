@@ -128,7 +128,10 @@ router.beforeEach(async (to, from, next) => {
   console.log(from);
 
   if (requiresAuth && !isSignedIn) {
-    return next({ name: 'sign-in' });
+
+    console.log('REDIRECTING TO SIGN IN AS LOT LOGGED IN');
+
+    //return next({ name: 'sign-in' });
   }
   return next();
 });
