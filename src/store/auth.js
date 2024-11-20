@@ -29,6 +29,16 @@ const module = {
         let allOk = false;
         if (user.emailVerified) {
           const signInMethods = await fetchSignInMethodsForEmail(auth, user.email);
+
+          console.log('Auth signInMethods:');
+          console.log(signInMethods);
+
+          if (signInMethods) {
+            console.log(`Auth signInMethods.length: ${signInMethods.length}`);
+            console.log('Auth signInMethods.indexOf:');
+            console.log(signInMethods.indexOf(EmailAuthProvider.EMAIL_LINK_SIGN_IN_METHOD));
+          }
+
           if (signInMethods && signInMethods.length > 0 && signInMethods.indexOf(EmailAuthProvider.EMAIL_LINK_SIGN_IN_METHOD) >= 0) {
             allOk = true;
           }
