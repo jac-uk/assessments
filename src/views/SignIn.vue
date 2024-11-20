@@ -97,12 +97,22 @@ export default {
 
         console.log('B');
 
+        console.log(`window.location.href: ${window.location.href}`);
+
         // we have 'return' flag set so try to complete sign in
         if (isSignInWithEmailLink(auth, window.location.href)) {
           const email = window.localStorage.getItem('emailForSignIn');
           const ref = window.localStorage.getItem('signInDestination');
+
+          console.log(`email: ${email}`);
+          console.log(`ref: ${ref}`);
+
           if (email && ref) {
             const result = await signInWithEmailLink(auth, email, window.location.href);
+
+            console.log('result:');
+            console.log(result);
+
             // email in user object from signInWithEmailLink will be converted to lowercase which might cause query issue
             if (result && result.user && result.user.email !== email) {
               result.user.email = email;
@@ -112,6 +122,9 @@ export default {
             await this.$store.dispatch('auth/setCurrentUser', result.user);
             this.$router.replace(ref);
           } else {
+
+            console.log('isSignInWithEmailLink returns false');
+
             this.loginFail = true;
           }
         }
