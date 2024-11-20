@@ -90,6 +90,8 @@ export default {
           return window.location.replace(response.data.result);
         } else {
           console.log('mal-formed request');
+          return;
+
           this.loginFail = true;
           this.signOut();
         }
@@ -119,7 +121,11 @@ export default {
             }
             window.localStorage.removeItem('emailForSignIn');
             window.localStorage.removeItem('signInDestination');
+
             await this.$store.dispatch('auth/setCurrentUser', result.user);
+
+            return;
+
             this.$router.replace(ref);
           } else {
 
