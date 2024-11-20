@@ -110,7 +110,7 @@ export default {
           if (email && ref) {
             const result = await signInWithEmailLink(auth, email, window.location.href);
 
-            console.log('result:');
+            console.log('signInWithEmailLink result:');
             console.log(result);
 
             // email in user object from signInWithEmailLink will be converted to lowercase which might cause query issue
