@@ -36,7 +36,7 @@ const module = {
             displayName: user.displayName,
           });
         } else {
-          auth.signOut();
+          await auth.signOut();
           commit('setAuthError', 'This site is restricted'); // @TODO Use agreed error message
         }
       }

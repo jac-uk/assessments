@@ -13,8 +13,8 @@ import mitt from 'mitt';
 const emitter = mitt();
 
 let vueInstance = false;
-auth.onAuthStateChanged( (user) => {
-  store.dispatch('auth/setCurrentUser', user);
+auth.onAuthStateChanged( async (user) => {
+  await store.dispatch('auth/setCurrentUser', user);
 
   // Create the Vue instance, but only once
   if (!vueInstance) {

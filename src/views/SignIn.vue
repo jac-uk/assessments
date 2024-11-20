@@ -75,7 +75,7 @@ export default {
           return window.location.replace(response.data.result);
         } else {
           this.loginFail = true;
-          this.signOut();
+          await this.signOut();
         }
       } else if (this.$route.query.return) {
 
