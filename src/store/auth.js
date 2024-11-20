@@ -17,6 +17,11 @@ const module = {
   },
   actions: {
     async setCurrentUser({ state, commit }, user) {
+
+      console.log('Auth setCurrentUser:');
+      console.log('Auth user:');
+      console.log(user);
+
       if (user === null) {
         commit('setCurrentUser', null);
       } else {
@@ -36,7 +41,10 @@ const module = {
             displayName: user.displayName,
           });
         } else {
-          await auth.signOut();
+
+          console.log('Auth signout 1');
+
+          auth.signOut();
           commit('setAuthError', 'This site is restricted'); // @TODO Use agreed error message
         }
       }
