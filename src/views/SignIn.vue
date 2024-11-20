@@ -95,7 +95,7 @@ export default {
         }
       } else if (this.$route.query.return) {
 
-        console.log('B');
+        console.log('B-1');
 
         console.log(`window.location.href: ${window.location.href}`);
 
