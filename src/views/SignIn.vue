@@ -92,8 +92,8 @@ export default {
           console.log('mal-formed request');
           return;
 
-          this.loginFail = true;
-          this.signOut();
+          // this.loginFail = true;
+          // this.signOut();
         }
       } else if (this.$route.query.return) {
 
@@ -126,7 +126,7 @@ export default {
 
             return;
 
-            this.$router.replace(ref);
+            //this.$router.replace(ref);
           } else {
 
             console.log('isSignInWithEmailLink returns false');
