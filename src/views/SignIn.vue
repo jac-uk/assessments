@@ -65,7 +65,7 @@ export default {
 
       if (this.$route.query.email && this.$route.query.ref) {
 
-        // console.log('A');
+        console.log('A');
 
         // we have email and ref querystring parameters so try to sign in automatically
         const email = this.$route.query.email.replace(/ /g, '+');  // Quick fix for #28 `+` being stripped from emails in IA links
