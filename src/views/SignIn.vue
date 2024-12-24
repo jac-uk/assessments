@@ -21,12 +21,11 @@
             id="error-summary-title"
             class="govuk-error-summary__title"
           >
-            There is a problem
+            {{ loginError.title }}
           </h2>
           <div class="govuk-error-summary__body">
             <ul class="govuk-list govuk-error-summary__list">
-              <li>You may have the wrong link, or</li>
-              <li>Your assessment is no longer required.</li>
+              <li>{{ loginError.message }}</li>
             </ul>
           </div>
         </div>
@@ -54,51 +53,43 @@ export default {
       loadFailed: false,
       formData: {},
       loginFail: false,
+      loginError: {
+        title: 'Invalid sign-in link',
+        message: 'The sign-in link is invalid.',
+      },
     };
   },
   async created() {
 
     try {
-
-      console.log('this.$route.query:');
-      console.log(this.$route.query);
-
-      if (this.$route.query.email && this.$route.query.ref) {
-
-        console.log('A');
-
-        // we have email and ref querystring parameters so try to sign in automatically
-        const email = this.$route.query.email.replace(/ /g, '+');  // Quick fix for #28 `+` being stripped from emails in IA links
-        const ref = this.$route.query.ref;
-
-        console.log(`email: ${email}`);
-        console.log(`ref: ${ref}`);
-
+      // assessor can get the token from requesting sign-in link, then use will receive the sign-in link with the token
+      if (this.$route.query.token) {
+        const token = this.$route.query.token;
         const returnUrl = `${window.location.protocol}//${window.location.host}/sign-in`;
-        const response = await httpsCallable(functions, 'generateSignInWithEmailLink')({ ref: ref, email: email, returnUrl: returnUrl });
 
-        console.log('RESPONSE:');
-        console.log(response);
+        // create firebase email link with token
+        const response = await httpsCallable(functions, 'createFirebaseEmailLink')({ token, returnUrl });
 
-        if (response && response.data && response.data.result) {
+        const { success, emailLink, ref, email, errorMsg } = response.data;
 
-          console.log('response.data.result:');
-          console.log(response.data.result);
-
+        if (success) {
+          // save email and ref to local storage for firebase email link sign in
           window.localStorage.setItem('emailForSignIn', email);
           window.localStorage.setItem('signInDestination', `${ref}/upload`);
-          return window.location.replace(response.data.result);
+
+          // redirect to firebase email link
+          return window.location.replace(emailLink);
         } else {
-          console.log('mal-formed request');
+          console.error('sign in with email link failed', errorMsg);
           this.loginFail = true;
+          this.loginError = this.mapLoginError(errorMsg);
           this.signOut();
         }
-      } else if (this.$route.query.return) {
-
-        console.log('B');
-
+      } else if (this.$route.query.return) { // firebase email link sign in
         // we have 'return' flag set so try to complete sign in
         if (isSignInWithEmailLink(auth, window.location.href)) {
+
+          // get email and ref from local storage from creating firebase email link process
           const email = window.localStorage.getItem('emailForSignIn');
           const ref = window.localStorage.getItem('signInDestination');
           if (email && ref) {
@@ -119,13 +110,33 @@ export default {
       this.loading = false;
     }
     catch (err) {
-      console.log('ERR:');
-      console.log(err);
+      console.error('ERR', err);
+      this.loadFailed = true;
     }
   },
   methods: {
     async signOut() {
       await auth.signOut();
+    },
+    mapLoginError(error) {
+      switch (error) {
+      case 'token-expired':
+        return {
+          title: 'Sign-in link expired',
+          message: 'The sign-in link has expired, please request a new one.',
+        };
+      case 'cannot-access':
+        return {
+          title: 'Can not access the assessment',
+          message: 'The assessor of the assessment has changed.',
+        };
+      case 'invalid-token':
+      default:
+        return {
+          title: 'Invalid sign-in link',
+          message: 'The sign-in link is invalid.',
+        };
+      }
     },
   },
 };
