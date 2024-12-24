@@ -2,7 +2,7 @@
   <div>
     <LoadingMessage
       v-if="loading"
-      :load-failed="requestFailed"
+      :load-failed="!success"
     />
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
@@ -10,9 +10,35 @@
           Assessments
         </h1>
 
+        <!-- success message -->
+        <div
+          v-if="!loading && success"
+          class="govuk-notification-banner govuk-notification-banner--success"
+          role="alert"
+          aria-labelledby="govuk-notification-banner-title"
+          data-module="govuk-notification-banner"
+        >
+          <div class="govuk-notification-banner__header">
+            <h2
+              id="govuk-notification-banner-title"
+              class="govuk-notification-banner__title"
+            >
+              Success
+            </h2>
+          </div>
+          <div class="govuk-notification-banner__content">
+            <h3 class="govuk-notification-banner__heading">
+              An assessment sign-in link has been sent to your email
+            </h3>
+            <p class="govuk-body">
+              You should receive an email with a sign-in link shortly.<br> Click the link for starting the assessment.
+            </p>
+          </div>
+        </div>
+
         <!-- error message -->
         <div
-          v-if="requestFailed"
+          v-if="!loading && !success"
           aria-labelledby="error-summary-title"
           role="alert"
           tabindex="-1"
@@ -30,31 +56,6 @@
               <li>You may have the wrong link, or</li>
               <li>Your assessment is no longer required.</li>
             </ul>
-          </div>
-        </div>
-
-        <!-- success message -->
-        <div
-          class="govuk-notification-banner govuk-notification-banner--success"
-          role="alert"
-          aria-labelledby="govuk-notification-banner-title"
-          data-module="govuk-notification-banner"
-        >
-          <div class="govuk-notification-banner__header">
-            <h2
-              id="govuk-notification-banner-title"
-              class="govuk-notification-banner__title"
-            >
-              Success
-            </h2>
-          </div>
-          <div class="govuk-notification-banner__content">
-            <h3 class="govuk-notification-banner__heading">
-              A sign-in link has been sent to your email
-            </h3>
-            <p class="govuk-body">
-              Click the sign-in link in your email for starting the assessment.
-            </p>
           </div>
         </div>
 
@@ -79,17 +80,12 @@ export default {
   data() {
     return {
       loading: true,
-      requestFailed: false,
+      success: false,
       formData: {},
     };
   },
   async created() {
-
     try {
-
-      console.log('this.$route.query:');
-      console.log(this.$route.query);
-
       const identity = this.$route.query.identity;
       const ref = this.$route.query.ref;
       const assessmentId = ref.split('/').length > 1 ? ref.split('/')[1] : null;
@@ -97,23 +93,15 @@ export default {
       if (identity && assessmentId) {
         this.loading = true;
         const response = await httpsCallable(functions, 'sendAssessmentSignInLink')({ assessmentId, identity });
-        console.log('RESPONSE:');
-        console.log(response);
+        let success = false;
         if (response && response.data) {
-          console.log('response.data.result:');
-          console.log(response.data.result);
-
-        } else {
-          console.log('mal-formed request');
-          this.requestFailed = true;
+          success = response.data;
         }
+        this.success = success;
       }
     }
     catch (err) {
-      console.log('ERR:');
-      console.log(err);
-      this.requestFailed = true;
-
+      this.success = false;
     } finally {
       this.loading = false;
     }
