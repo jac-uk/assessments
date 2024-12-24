@@ -2,7 +2,7 @@
   <div>
     <LoadingMessage
       v-if="loading"
-      :load-failed="!success"
+      :load-failed="success"
     />
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
@@ -31,7 +31,10 @@
               An assessment sign-in link has been sent to your email
             </h3>
             <p class="govuk-body">
-              You should receive an email with a sign-in link shortly.<br> Click the link for starting the assessment.
+              You should receive an email with a sign-in link shortly.<br>
+              Click the link for starting the assessment.<br><br>
+              Note the the link will expire in 5 minutes. <br>
+              You can request a new link by refreshing this page.
             </p>
           </div>
         </div>
