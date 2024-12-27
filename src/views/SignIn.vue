@@ -110,7 +110,6 @@ export default {
       this.loading = false;
     }
     catch (err) {
-      console.error('ERR', err);
       this.loadFailed = true;
     }
   },
