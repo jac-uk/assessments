@@ -106,6 +106,9 @@ export default {
             this.loginFail = true;
           }
         }
+      } else {
+        this.loginFail = true;
+        this.loginError = this.mapLoginError('been-signed-out');
       }
       this.loading = false;
     }
@@ -130,10 +133,15 @@ export default {
           message: 'The assessor of the assessment has changed.',
         };
       case 'invalid-token':
-      default:
         return {
           title: 'Invalid sign-in link',
           message: 'The sign-in link is invalid.',
+        };
+      case 'been-signed-out':
+      default:
+        return {
+          title: 'You have been signed out',
+          message: 'Please request a new sign-in link.',
         };
       }
     },
