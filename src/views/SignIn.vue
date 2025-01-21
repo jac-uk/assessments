@@ -141,7 +141,7 @@ export default {
       default:
         return {
           title: 'You have been signed out',
-          message: 'Please request a new sign-in link.',
+          message: 'Please request a new sign-in link by clicking on the link in the original email.',
         };
       }
     },
