@@ -14,6 +14,13 @@ export default defineConfig({
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],  // Remove this eventually
   },
   plugins: [vue()],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: 'legacy',
+      },
+    },
+  },
   server: {
     port: 8082,
   },
