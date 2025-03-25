@@ -1,5 +1,5 @@
-import { auth } from '@/firebase';
-import { fetchSignInMethodsForEmail, EmailAuthProvider } from '@firebase/auth';
+import { auth, functions } from '@/firebase';
+import { httpsCallable } from '@firebase/functions';
 
 const module = {
   namespaced: true,
@@ -23,8 +23,8 @@ const module = {
         if (state.authError) { commit('setAuthError', null); }
         let allOk = false;
         if (user.emailVerified) {
-          const signInMethods = await fetchSignInMethodsForEmail(auth, user.email);
-          if (signInMethods && signInMethods.length > 0 && signInMethods.indexOf(EmailAuthProvider.EMAIL_LINK_SIGN_IN_METHOD) >= 0) {
+          const response = await httpsCallable(functions, 'fetchSignInMethodsForEmail')({ email: user.email });
+          if (response.data) {
             allOk = true;
           }
         }
