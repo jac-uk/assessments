@@ -21,20 +21,16 @@ const module = {
         commit('setCurrentUser', null);
       } else {
         if (state.authError) { commit('setAuthError', null); }
-        let allOk = false;
         if (user.emailVerified) {
           const response = await httpsCallable(functions, 'checkSignInMethodsForEmail')();
           if (response.data) {
-            allOk = true;
+            commit('setCurrentUser', {
+              uid: user.uid,
+              email: user.email,
+              emailVerified: user.emailVerified,
+              displayName: user.displayName,
+            });
           }
-        }
-        if (allOk) {
-          commit('setCurrentUser', {
-            uid: user.uid,
-            email: user.email,
-            emailVerified: user.emailVerified,
-            displayName: user.displayName,
-          });
         } else {
           auth.signOut();
           commit('setAuthError', 'This site is restricted'); // @TODO Use agreed error message
