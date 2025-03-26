@@ -23,7 +23,7 @@ const module = {
         if (state.authError) { commit('setAuthError', null); }
         let allOk = false;
         if (user.emailVerified) {
-          const response = await httpsCallable(functions, 'checkSignInMethodsForEmail')({ email: user.email });
+          const response = await httpsCallable(functions, 'checkSignInMethodsForEmail')();
           if (response.data) {
             allOk = true;
           }
