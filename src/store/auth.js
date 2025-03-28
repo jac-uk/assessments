@@ -1,5 +1,5 @@
-import { auth } from '@/firebase';
-import { fetchSignInMethodsForEmail, EmailAuthProvider } from '@firebase/auth';
+import { auth, functions } from '@/firebase';
+import { httpsCallable } from '@firebase/functions';
 
 const module = {
   namespaced: true,
@@ -21,20 +21,16 @@ const module = {
         commit('setCurrentUser', null);
       } else {
         if (state.authError) { commit('setAuthError', null); }
-        let allOk = false;
         if (user.emailVerified) {
-          const signInMethods = await fetchSignInMethodsForEmail(auth, user.email);
-          if (signInMethods && signInMethods.length > 0 && signInMethods.indexOf(EmailAuthProvider.EMAIL_LINK_SIGN_IN_METHOD) >= 0) {
-            allOk = true;
+          const response = await httpsCallable(functions, 'checkSignInMethodsForEmail')();
+          if (response.data) {
+            commit('setCurrentUser', {
+              uid: user.uid,
+              email: user.email,
+              emailVerified: user.emailVerified,
+              displayName: user.displayName,
+            });
           }
-        }
-        if (allOk) {
-          commit('setCurrentUser', {
-            uid: user.uid,
-            email: user.email,
-            emailVerified: user.emailVerified,
-            displayName: user.displayName,
-          });
         } else {
           auth.signOut();
           commit('setAuthError', 'This site is restricted'); // @TODO Use agreed error message
