@@ -6,6 +6,7 @@ import {
 import store from '@/store';
 
 import SignIn from '@/views/SignIn';
+import SignInRequest from '@/views/SignInRequest';
 
 // Edit views
 import Assessments from '@/views/Assessments';
@@ -24,6 +25,15 @@ import PageNotFound from '@/views/Errors/PageNotFound';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    {
+      path: '/sign-in-request',
+      name: 'sign-in-request',
+      component: SignInRequest,
+      meta: {
+        requiresAuth: false,
+        title: 'Sign In Request',
+      },
+    },
     {
       path: '/:pathMatch(.*)*',
       redirect: '/sign-in',
